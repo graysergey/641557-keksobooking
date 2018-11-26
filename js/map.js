@@ -50,7 +50,7 @@ var getRandomLengthArray = function (array) {
 var createArrayAds = function (amount) {
   var ads = [];
 
-  var arrayAvatarsNumbers = ['1', '2', '3', '4', '5', '6', '7', '8']; //фиктивный массив для случайного номера в аватарке
+  var arrayAvatarsNumbers = ['1', '2', '3', '4', '5', '6', '7', '8']; // фиктивный массив для случайного номера в аватарке
   var numbersForAvatars = shufleArray(arrayAvatarsNumbers);
   var titels = shufleArray(title);
   for (var i = 0; i < amount; i++) {
@@ -87,8 +87,6 @@ var createArrayAds = function (amount) {
 };
 
 createArrayAds(8);
-
-
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
