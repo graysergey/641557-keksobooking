@@ -8,9 +8,13 @@ var GUESTS_MAX = 15;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
 var DESCRIPTION = '';
-
-var offsetWidth = document.querySelector('.map').offsetWidth;
 var ADS_COUNT = 8;
+
+var widthMap = document.querySelector('.map').offsetWidth;
+var widthPointer = document.querySelector('.map__pin').offsetWidth;
+var pointerTemlate = document.querySelector('#pin')
+  .content.querySelector('.map__pin');
+var pointerElement = document.querySelector('.map__pin');
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -53,11 +57,11 @@ var getUserAvatar = function (i) {
 };
 
 // Создает массив объявлений
-var createArrayAds = function (amount) {
+var createAdsArray = function (amount) {
   var ads = [];
 
   for (var i = 0; i < amount; i++) {
-    var locationX = Math.round(Math.random() * offsetWidth);
+    var locationX = Math.round(Math.random() * widthMap);
     var locationY = getRandomNumber(LOCATION_MIN_Y, LOCATION_MAX_Y);
 
     var ad = {
@@ -89,7 +93,30 @@ var createArrayAds = function (amount) {
   return ads;
 };
 
-createArrayAds(ADS_COUNT);
+var ads = createAdsArray(ADS_COUNT);
 
+// показывает активное состояние карты
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
+
+// Создает DOM элемент (отметки на карте)
+var getPointerElement = function (ad) {
+  var elementPointer = pointerTemlate.cloneNode(true);
+
+  elementPointer.style.left = (ad.location.x + 'px') - (widthPointer / 2);
+  elementPointer.src = ad.author.avatar;
+  elementPointer.alt = ad.offer.title;
+
+  return elementPointer;
+};
+
+// Создает DOM фрагмент
+var getPointerFragment = function (count) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < count - 1; i++) {
+    fragment.appendChild(getPointerElement(ads[i]));
+  }
+};
+
+// Запускает предидущий код (должен отрисовать метки)
+pointerElement.appendChild(getPointerFragment(ADS_COUNT));
