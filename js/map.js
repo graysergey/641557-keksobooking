@@ -1,6 +1,18 @@
 'use strict';
+var PRICE_MIN = 1000;
+var PRICE_MAX = 1000000;
+var ROOMS_MIN = 1;
+var ROOMS_MAX = 5;
+var GUESTS_MIN = 1;
+var GUESTS_MAX = 15;
+var LOCATION_MIN_Y = 130;
+var LOCATION_MAX_Y = 630;
+var DESCRIPTION = '';
 
-var title = ['Большая уютная квартира',
+var offsetWidth = document.querySelector('.map').offsetWidth;
+var ADS_COUNT = 8;
+
+var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
   'Маленький ужасный дворец',
@@ -13,23 +25,12 @@ var types = ['palace', 'flat', 'house', 'bungalo'];
 var checkinTimes = ['12:00', '13:00', '14:00'];
 var checkoutTimes = ['12:00', '13:00', '14:00'];
 var featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var description = '';
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var addressX = '600';
-var addressY = '350';
-var priceFrom = 1000;
-var priceTo = 1000000;
-var roomsFrom = 1;
-var roomsTo = 5;
-var guestsFrom = 1;
-var guestsTo = 15;
-var locationYFrom = 130;
-var locationYTo = 630;
-var offsetWidth = document.querySelector('.map').offsetWidth;
 
-var shufleArray = function (array) {
+// Перемешивает массив
+var shuffleArray = function (array) {
   for (var i = array.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
     var temp = array[i];
@@ -47,46 +48,48 @@ var getRandomLengthArray = function (array) {
   return array.slice(Math.floor(getRandomNumber(1, array.length)));
 };
 
+var getUserAvatar = function (i) {
+  return 'img/avatars/user0' + i + 1 + '.png';
+};
+
+// Создает массив объявлений
 var createArrayAds = function (amount) {
   var ads = [];
 
-  var arrayAvatarsNumbers = ['1', '2', '3', '4', '5', '6', '7', '8']; // фиктивный массив для случайного номера в аватарке
-  var numbersForAvatars = shufleArray(arrayAvatarsNumbers);
-  var titels = shufleArray(title);
   for (var i = 0; i < amount; i++) {
-    var author = {};
-    var offer = {};
-    var location = {};
+    var locationX = Math.round(Math.random() * offsetWidth);
+    var locationY = getRandomNumber(LOCATION_MIN_Y, LOCATION_MAX_Y);
+
     var ad = {
+      author: {
+        avatar: getUserAvatar
+      },
+
+      offer: {
+        title: titles[i],
+        address: locationX + ', ' + locationY,
+        price: getRandomNumber(PRICE_MIN, PRICE_MAX),
+        type: types[Math.floor(Math.random() * types.length)],
+        rooms: getRandomNumber(ROOMS_MIN, ROOMS_MAX),
+        guests: getRandomNumber(GUESTS_MIN, GUESTS_MAX),
+        checkin: checkinTimes[Math.floor(Math.random() * checkinTimes.length)],
+        checkout: checkoutTimes[Math.floor(Math.random() * checkoutTimes.length)],
+        features: getRandomLengthArray(featuresArray),
+        description: DESCRIPTION,
+        photos: shuffleArray(photos)
+      },
+
+      location: {
+        x: locationX,
+        y: locationY
+      }
     };
-
-    author.avatar = 'img/avatars/user' + '0' + numbersForAvatars[i] + '.png';
-
-    offer.title = titels[i];
-    offer.address = addressX + ', ' + addressY;
-    offer.price = getRandomNumber(priceFrom, priceTo);
-    offer.type = types[Math.floor(Math.random() * types.length)];
-    offer.rooms = getRandomNumber(roomsFrom, roomsTo);
-    offer.guests = getRandomNumber(guestsFrom, guestsTo);
-    offer.checkin = checkinTimes[Math.floor(Math.random() * checkinTimes.length)];
-    offer.checkout = checkoutTimes[Math.floor(Math.random() * checkoutTimes.length)];
-    offer.features = getRandomLengthArray(featuresArray);
-    offer.description = description;
-    offer.photos = shufleArray(photos);
-
-    location.x = Math.round(Math.random() * offsetWidth);
-    location.y = getRandomNumber(locationYFrom, locationYTo);
-
-    ad.author = author;
-    ad.offer = offer;
-    ad.location = location;
-
     ads.push(ad);
   }
   return ads;
 };
 
-createArrayAds(8);
+createArrayAds(ADS_COUNT);
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
