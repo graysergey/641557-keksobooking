@@ -1,8 +1,5 @@
 'use strict';
 
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
-
 var title = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
@@ -53,7 +50,7 @@ var getRandomLengthArray = function (array) {
 var createArrayAds = function (amount) {
   var ads = [];
 
-  var arrayAvatarsNumbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
+  var arrayAvatarsNumbers = ['1', '2', '3', '4', '5', '6', '7', '8']; //фиктивный массив для случайного номера в аватарке
   var numbersForAvatars = shufleArray(arrayAvatarsNumbers);
   var titels = shufleArray(title);
   for (var i = 0; i < amount; i++) {
@@ -77,7 +74,7 @@ var createArrayAds = function (amount) {
     offer.description = description;
     offer.photos = shufleArray(photos);
 
-    location.x = offsetWidth;
+    location.x = Math.round(Math.random() * offsetWidth);
     location.y = getRandomNumber(locationYFrom, locationYTo);
 
     ad.author = author;
@@ -90,3 +87,8 @@ var createArrayAds = function (amount) {
 };
 
 createArrayAds(8);
+
+
+
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
