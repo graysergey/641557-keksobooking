@@ -3,20 +3,20 @@
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
-var title = ["Большая уютная квартира",
-  "Маленькая неуютная квартира",
-  "Огромный прекрасный дворец",
-  "Маленький ужасный дворец",
-  "Красивый гостевой домик",
-  "Некрасивый негостеприимный домик",
-  "Уютное бунгало далеко от моря",
-  "Неуютное бунгало по колено в воде"];
+var title = ['Большая уютная квартира',
+  'Маленькая неуютная квартира',
+  'Огромный прекрасный дворец',
+  'Маленький ужасный дворец',
+  'Красивый гостевой домик',
+  'Некрасивый негостеприимный домик',
+  'Уютное бунгало далеко от моря',
+  'Неуютное бунгало по колено в воде'];
 
 var types = ['palace', 'flat', 'house', 'bungalo'];
 var checkinTimes = ['12:00', '13:00', '14:00'];
 var checkoutTimes = ['12:00', '13:00', '14:00'];
 var featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var description = "";
+var description = '';
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
@@ -32,25 +32,25 @@ var locationYFrom = 130;
 var locationYTo = 630;
 var offsetWidth = document.querySelector('.map').offsetWidth;
 
-var shufleArray = function(array) {
+var shufleArray = function (array) {
   for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i+1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
   return array;
 };
 
 var getRandomNumber = function (from, to) {
-  return Math.floor(Math.random() * (to - from +1) + from);
+  return Math.floor(Math.random() * (to - from + 1) + from);
 };
 
 var getRandomLengthArray = function (array) {
   return array.slice(Math.floor(getRandomNumber(1, array.length)));
 };
 
-var createArrayAds= function (amount) {
+var createArrayAds = function (amount) {
   var ads = [];
 
   var arrayAvatarsNumbers = ['1', '2', '3', '4', '5', '6', '7', '8'];
@@ -89,4 +89,4 @@ var createArrayAds= function (amount) {
   return ads;
 };
 
-console.log(createArrayAds(8));
+createArrayAds(8);
