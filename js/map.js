@@ -1,4 +1,7 @@
 'use strict';
+
+var widthMap = document.querySelector('.map').offsetWidth;
+
 var PRICE_MIN = 1000;
 var PRICE_MAX = 1000000;
 var ROOMS_MIN = 1;
@@ -7,11 +10,11 @@ var GUESTS_MIN = 1;
 var GUESTS_MAX = 15;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
+var LOCATION_MIN_X = 25;
+var LOCATION_MAX_X = widthMap - 25;
 var DESCRIPTION = '';
 var ADS_COUNT = 8;
 
-var widthMap = document.querySelector('.map').offsetWidth;
-var widthPointer = document.querySelector('.map__pin').offsetWidth;
 var pointerElement = document.querySelector('.map__pin');
 
 var titles = ['Большая уютная квартира',
@@ -59,7 +62,7 @@ var createAdsArray = function (amount) {
   var ads = [];
 
   for (var i = 0; i < amount; i++) {
-    var locationX = Math.round(Math.random() * widthMap);
+    var locationX = getRandomNumber(LOCATION_MIN_X, LOCATION_MAX_X);
     var locationY = getRandomNumber(LOCATION_MIN_Y, LOCATION_MAX_Y);
 
     var ad = {
@@ -105,8 +108,7 @@ var pointerTemlate = document.querySelector('#pin')
 var getPointerElement = function (ad) {
   var elementPointer = pointerTemlate.cloneNode(true);
 
-  elementPointer.style = 'left: ' + String(ad.location.x)
-    + 'px; top: ' + String(ad.location.y) + 'px';
+  elementPointer.style = 'left: ' + String(ad.location.x) + 'px; top: ' + String(ad.location.y) + 'px';
   elementPointer.querySelector('img').src = ad.author.avatar;
   elementPointer.querySelector('img').alt = ad.offer.title;
 
@@ -116,10 +118,10 @@ var getPointerElement = function (ad) {
 // Создает DOM фрагмент
 var getPointerFragment = function (count) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < count - 1; i++) {
+  for (var i = 0; i < count; i++) {
     fragment.appendChild(getPointerElement(ads[i]));
   }
 };
-console.log(pointerTemlate);
+
 // Запускает предидущий код (должен отрисовать метки)
-pointerElement.appendChild(getPointerFragment(ADS_COUNT));
+pointerElement.appendChild(getPointerFragment(ads));
