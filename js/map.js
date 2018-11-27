@@ -12,8 +12,6 @@ var ADS_COUNT = 8;
 
 var widthMap = document.querySelector('.map').offsetWidth;
 var widthPointer = document.querySelector('.map__pin').offsetWidth;
-var pointerTemlate = document.querySelector('#pin')
-  .content.querySelector('.map__pin');
 var pointerElement = document.querySelector('.map__pin');
 
 var titles = ['Большая уютная квартира',
@@ -53,7 +51,7 @@ var getRandomLengthArray = function (array) {
 };
 
 var getUserAvatar = function (i) {
-  return 'img/avatars/user0' + i + 1 + '.png';
+  return 'img/avatars/user0' + (i + 1) + '.png';
 };
 
 // Создает массив объявлений
@@ -66,7 +64,7 @@ var createAdsArray = function (amount) {
 
     var ad = {
       author: {
-        avatar: getUserAvatar
+        avatar: getUserAvatar(i)
       },
 
       offer: {
@@ -99,13 +97,18 @@ var ads = createAdsArray(ADS_COUNT);
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
+
+var pointerTemlate = document.querySelector('#pin')
+  .content.querySelector('.map__pin');
+
 // Создает DOM элемент (отметки на карте)
 var getPointerElement = function (ad) {
   var elementPointer = pointerTemlate.cloneNode(true);
 
-  elementPointer.style.left = (ad.location.x + 'px') - (widthPointer / 2);
-  elementPointer.src = ad.author.avatar;
-  elementPointer.alt = ad.offer.title;
+  elementPointer.style = 'left: ' + String(ad.location.x)
+    + 'px; top: ' + String(ad.location.y) + 'px';
+  elementPointer.querySelector('img').src = ad.author.avatar;
+  elementPointer.querySelector('img').alt = ad.offer.title;
 
   return elementPointer;
 };
@@ -117,6 +120,6 @@ var getPointerFragment = function (count) {
     fragment.appendChild(getPointerElement(ads[i]));
   }
 };
-
+console.log(pointerTemlate);
 // Запускает предидущий код (должен отрисовать метки)
 pointerElement.appendChild(getPointerFragment(ADS_COUNT));
