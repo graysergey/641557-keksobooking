@@ -15,7 +15,7 @@ var LOCATION_MAX_X = widthMap - 25;
 var DESCRIPTION = '';
 var ADS_COUNT = 8;
 
-var pointerElement = document.querySelector('.map__pin');
+var pointersElements = document.querySelector('.map__pins');
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -116,12 +116,12 @@ var getPointerElement = function (ad) {
 };
 
 // Создает DOM фрагмент
-var getPointerFragment = function (count) {
+var getPointerFragment = function (array) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < count; i++) {
-    fragment.appendChild(getPointerElement(ads[i]));
+  for (var i = 0; i < array.length; i++) {
+    fragment.appendChild(getPointerElement(array[i]));
   }
+  return fragment;
 };
 
-// Запускает предидущий код (должен отрисовать метки)
-pointerElement.appendChild(getPointerFragment(ads));
+pointersElements.appendChild(getPointerFragment(ads));
