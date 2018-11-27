@@ -94,6 +94,7 @@ var createAdsArray = function (amount) {
   return ads;
 };
 
+// записываем в переменную массив объявлений
 var ads = createAdsArray(ADS_COUNT);
 
 // показывает активное состояние карты
@@ -101,16 +102,18 @@ var map = document.querySelector('.map');
 map.classList.remove('map--faded');
 
 
-var pointerTemlate = document.querySelector('#pin')
-  .content.querySelector('.map__pin');
+var pointerTemplate = document.querySelector('#pin');
 
 // Создает DOM элемент (отметки на карте)
 var getPointerElement = function (ad) {
-  var elementPointer = pointerTemlate.cloneNode(true);
+  var elementPointer = pointerTemplate.cloneNode(true).content;
+  var pin = elementPointer.querySelector('.map__pin');
+  var avatar = elementPointer.querySelector('img');
 
-  elementPointer.style = 'left: ' + String(ad.location.x) + 'px; top: ' + String(ad.location.y) + 'px';
-  elementPointer.querySelector('img').src = ad.author.avatar;
-  elementPointer.querySelector('img').alt = ad.offer.title;
+  pin.style.left = ad.location.x + 'px';
+  pin.style.top = ad.location.y + 'px';
+  avatar.src = ad.author.avatar;
+  avatar.alt = ad.offer.title;
 
   return elementPointer;
 };
@@ -125,3 +128,5 @@ var getPointerFragment = function (array) {
 };
 
 pointersElements.appendChild(getPointerFragment(ads));
+
+
