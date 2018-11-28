@@ -175,15 +175,6 @@ var getCardElement = function (ad) {
   var elementCard = cardTemplate.cloneNode(true);
   var card = elementCard.querySelector('.map__card');
 
-
-  // var testFragment = document.createDocumentFragment();
-  // var test = document.createElement('div');
-  // test.classList.add('map__card');
-  // test.textContent = 'Какой то текст на странице' + ' 60 ' + 'еще какой то текст '
-  //   + (70 - 20 * 2) + 'еще много много текста';
-  // testFragment.appendChild(test);
-  // return testFragment.appendChild(test);
-
   card.querySelector('.popup__title').textContent = ad.offer.title;
   card.querySelector('.popup__text--address').textContent = ad.offer.address;
   card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD' + '/ночь';
@@ -193,12 +184,10 @@ var getCardElement = function (ad) {
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   // card.querySelector('.popup__features').querySelectorAll('.popup__feature');
   card.querySelector('.popup__description').textContent = ad.offer.description;
-  card.querySelector('.popup__photos') = getElementsPhoto(photos);
+  // card.querySelector('.popup__photos') = getElementsPhoto(photos);
 
   return card;
 };
-// console.log(getCardElement(ads[0]));
-// adOnMap.appendChild(getCardElement());
 
 // Создает DOM фрагмент (объявления на карте)
 var getFragmentCard = function (array) {
@@ -206,7 +195,5 @@ var getFragmentCard = function (array) {
   fragment.appendChild(getCardElement(array[0]));
   return fragment;
 };
-// console.log(getFragmentCard(ads[0]));
 
-// adOnMap.insertBefore(getFragmentCard(ads), filtersContainer);
 adOnMap.appendChild(getFragmentCard(ads));
