@@ -150,30 +150,26 @@ pointers.appendChild(getPointerFragment(ads));
 
 var cardTemplate = document.querySelector('#card').content;
 
-// Создает img с нужным src
-var getElementPhoto = function (data) {
-  var elementImg = cardTemplate
+// // Создает картинку с адресом
+var getElementPhoto = function (ad) {
+  var fragment = document.createDocumentFragment();
+  var createImg;
+
+  for (var i = 0; i < ad.offer.photos.length; i++) {
+    createImg = cardTemplate.querySelector('.map__card')
     .querySelector('.popup__photo').cloneNode(true);
-  elementImg.src = data;
 
-  return elementImg;
-};
-
-// Создает список img в блоке popup__photos
-var getElementsPhoto = function (array) {
-  var photoContainer = cardTemplate.querySelector('.popup__photos');
-
-  for (var i = 0; i < array.length; i++) {
-    var imgElement = getElementPhoto(array[i]);
-    photoContainer.appendChild(imgElement);
+    createImg.src = ad.offer.photos[i];
+    fragment.appendChild(createImg);
   }
-  return photoContainer;
+  return fragment;
 };
 
 // Создает DOM элемент (объявления на карте)
 var getCardElement = function (ad) {
   var elementCard = cardTemplate.cloneNode(true);
   var card = elementCard.querySelector('.map__card');
+  var imgRemove = card.querySelector('.popup__photo');
 
   card.querySelector('.popup__title').textContent = ad.offer.title;
   card.querySelector('.popup__text--address').textContent = ad.offer.address;
@@ -184,7 +180,8 @@ var getCardElement = function (ad) {
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   // card.querySelector('.popup__features').querySelectorAll('.popup__feature');
   card.querySelector('.popup__description').textContent = ad.offer.description;
-  // card.querySelector('.popup__photos') = getElementsPhoto(photos);
+  card.querySelector('.popup__photos').removeChild(imgRemove);
+  card.querySelector('.popup__photos').appendChild(getElementPhoto(ad));
 
   return card;
 };
