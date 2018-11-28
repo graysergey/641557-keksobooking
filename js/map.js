@@ -82,6 +82,9 @@ var createAdsArray = function (amount) {
   for (var i = 0; i < amount; i++) {
     var locationX = getRandomNumber(LOCATION_MIN_X, LOCATION_MAX_X);
     var locationY = getRandomNumber(LOCATION_MIN_Y, LOCATION_MAX_Y);
+    var checkinRandom = Math.floor(Math.random() * checkinTimes.length);
+    var checkoutRandom = Math.floor(Math.random() * checkoutTimes.length);
+
 
     var ad = {
       author: {
@@ -95,8 +98,8 @@ var createAdsArray = function (amount) {
         type: getRandomPlace(types),
         rooms: getRandomNumber(ROOMS_MIN, ROOMS_MAX),
         guests: getRandomNumber(GUESTS_MIN, GUESTS_MAX),
-        checkin: checkinTimes[Math.floor(Math.random() * checkinTimes.length)],
-        checkout: checkoutTimes[Math.floor(Math.random() * checkoutTimes.length)],
+        checkin: checkinTimes[checkinRandom],
+        checkout: checkoutTimes[checkoutRandom],
         features: getRandomLengthArray(featuresArray),
         description: DESCRIPTION,
         photos: shuffleArray(photos)
@@ -192,7 +195,6 @@ var getCardElement = function (ad) {
 
   // Отрисовывает features (пункты меню <li>)
   for (var j = 0; j <= ad.offer.features.length - 1; j++) {
-    console.log(ad.offer.features);
     if (ad.offer.features[j] === 'wifi') {
       var wifi = document.createElement('li');
       wifi.classList.add('popup__feature', 'popup__feature--wifi');
