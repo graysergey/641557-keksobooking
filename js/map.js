@@ -52,7 +52,7 @@ var getRandomNumber = function (from, to) {
 };
 
 var getRandomLengthArray = function (array) {
-  return array.slice(Math.floor(getRandomNumber(1, array.length - 1)));
+  return array.slice(getRandomNumber(1, array.length - 1));
 };
 
 var getUserAvatar = function (i) {
@@ -170,13 +170,6 @@ var getCardElement = function (ad) {
   var imgRemove = card.querySelector('.popup__photo');
   var featuresList = card.querySelector('.popup__features');
 
-  //  удаляет все li
-  var featureslist = card.querySelectorAll('.popup__feature');
-  for (var i = featureslist.length - 1; i >= 0; i--) {
-    var child = card.querySelector('.popup__feature:last-child');
-    child.parentElement.removeChild(child);
-  }
-
   card.querySelector('.popup__title').textContent = ad.offer.title;
   card.querySelector('.popup__text--address').textContent = ad.offer.address;
   card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD' + '/ночь';
@@ -190,7 +183,16 @@ var getCardElement = function (ad) {
   card.querySelector('.popup__photos').appendChild(getElementPhoto(ad));
   card.querySelector('.popup__avatar').src = ad.author.avatar;
 
+  //  удаляет все li
+  var featureslist = card.querySelectorAll('.popup__feature');
+  for (var i = featureslist.length - 1; i >= 0; i--) {
+    var child = card.querySelector('.popup__feature:last-child');
+    child.parentElement.removeChild(child);
+  }
+
+  // Отрисовывает features (пункты меню <li>)
   for (var j = 0; j <= ad.offer.features.length - 1; j++) {
+    console.log(ad.offer.features);
     if (ad.offer.features[j] === 'wifi') {
       var wifi = document.createElement('li');
       wifi.classList.add('popup__feature', 'popup__feature--wifi');
@@ -207,11 +209,11 @@ var getCardElement = function (ad) {
       var washer = document.createElement('li');
       washer.classList.add('popup__feature', 'popup__feature--washer');
       featuresList.appendChild(washer);
-    } if (ad.offer.features[j] === 'washer') {
+    } if (ad.offer.features[j] === 'elevator') {
       var elevator = document.createElement('li');
       elevator.classList.add('popup__feature', 'popup__feature--elevator');
       featuresList.appendChild(elevator);
-    } if (ad.offer.features[j] === 'washer') {
+    } if (ad.offer.features[j] === 'conditioner') {
       var conditioner = document.createElement('li');
       conditioner.classList.add('popup__feature', 'popup__feature--conditioner');
       featuresList.appendChild(conditioner);
