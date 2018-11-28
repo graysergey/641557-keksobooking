@@ -12,10 +12,12 @@ var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
 var LOCATION_MIN_X = 25;
 var LOCATION_MAX_X = widthMap - 25;
-var DESCRIPTION = '';
+var DESCRIPTION = 'Великолепные аппартаменты в центре Токио';
 var ADS_COUNT = 8;
 
-var pointersElements = document.querySelector('.map__pins');
+var pointers = document.querySelector('.map__pins');
+var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
+// var filtersContainer = document.querySelector('.map__filters-container');
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -57,6 +59,22 @@ var getUserAvatar = function (i) {
   return 'img/avatars/user0' + (i + 1) + '.png';
 };
 
+var getRandomPlace = function (array) {
+  var index;
+  var indexArray = array[Math.floor(Math.random() * array.length)];
+
+  if (indexArray === 'flat') {
+    index = 'Квартира';
+  } else if (indexArray === 'bungalo') {
+    index = 'Бунгало';
+  } else if (indexArray === 'house') {
+    index = 'Дом';
+  } else if (indexArray === 'place') {
+    index = 'Дворец';
+  }
+  return index;
+};
+
 // Создает массив объявлений
 var createAdsArray = function (amount) {
   var ads = [];
@@ -74,7 +92,7 @@ var createAdsArray = function (amount) {
         title: titles[i],
         address: locationX + ', ' + locationY,
         price: getRandomNumber(PRICE_MIN, PRICE_MAX),
-        type: types[Math.floor(Math.random() * types.length)],
+        type: getRandomPlace(types),
         rooms: getRandomNumber(ROOMS_MIN, ROOMS_MAX),
         guests: getRandomNumber(GUESTS_MIN, GUESTS_MAX),
         checkin: checkinTimes[Math.floor(Math.random() * checkinTimes.length)],
@@ -96,6 +114,7 @@ var createAdsArray = function (amount) {
 
 // записываем в переменную массив объявлений
 var ads = createAdsArray(ADS_COUNT);
+// console.log(createAdsArray(ADS_COUNT));
 
 // показывает активное состояние карты
 var map = document.querySelector('.map');
@@ -118,7 +137,7 @@ var getPointerElement = function (ad) {
   return elementPointer;
 };
 
-// Создает DOM фрагмент
+// Создает DOM фрагмент (отметки на карте)
 var getPointerFragment = function (array) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < array.length; i++) {
@@ -126,7 +145,68 @@ var getPointerFragment = function (array) {
   }
   return fragment;
 };
+pointers.appendChild(getPointerFragment(ads));
 
-pointersElements.appendChild(getPointerFragment(ads));
+
+var cardTemplate = document.querySelector('#card').content;
+
+// Создает img с нужным src
+var getElementPhoto = function (data) {
+  var elementImg = cardTemplate
+    .querySelector('.popup__photo').cloneNode(true);
+  elementImg.src = data;
+
+  return elementImg;
+};
+
+// Создает список img в блоке popup__photos
+var getElementsPhoto = function (array) {
+  var photoContainer = cardTemplate.querySelector('.popup__photos');
+
+  for (var i = 0; i < array.length; i++) {
+    var imgElement = getElementPhoto(array[i]);
+    photoContainer.appendChild(imgElement);
+  }
+  return photoContainer;
+};
+
+// Создает DOM элемент (объявления на карте)
+var getCardElement = function (ad) {
+  var elementCard = cardTemplate.cloneNode(true);
+  var card = elementCard.querySelector('.map__card');
 
 
+  // var testFragment = document.createDocumentFragment();
+  // var test = document.createElement('div');
+  // test.classList.add('map__card');
+  // test.textContent = 'Какой то текст на странице' + ' 60 ' + 'еще какой то текст '
+  //   + (70 - 20 * 2) + 'еще много много текста';
+  // testFragment.appendChild(test);
+  // return testFragment.appendChild(test);
+
+  card.querySelector('.popup__title').textContent = ad.offer.title;
+  card.querySelector('.popup__text--address').textContent = ad.offer.address;
+  card.querySelector('.popup__text--price').textContent = ad.offer.price + '\u20BD' + '/ночь';
+  card.querySelector('.popup__type').textContent = ad.offer.type;
+  card.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для '
+    + ad.offer.guests + ' гостей';
+  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
+  // card.querySelector('.popup__features').querySelectorAll('.popup__feature');
+  card.querySelector('.popup__description').textContent = ad.offer.description;
+  card.querySelector('.popup__photos') = getElementsPhoto(photos);
+
+  return card;
+};
+// console.log(getCardElement(ads[0]));
+// adOnMap.appendChild(getCardElement());
+
+// Создает DOM фрагмент (объявления на карте)
+var getFragmentCard = function (array) {
+  var fragment = document.createDocumentFragment();
+  fragment.appendChild(getCardElement(array[0]));
+  return fragment;
+};
+// console.log(getFragmentCard(ads[0]));
+
+// adOnMap.insertBefore(getFragmentCard(ads), filtersContainer);
+adOnMap.appendChild(getFragmentCard(ads));
