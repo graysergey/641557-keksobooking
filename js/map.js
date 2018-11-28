@@ -52,7 +52,7 @@ var getRandomNumber = function (from, to) {
 };
 
 var getRandomLengthArray = function (array) {
-  return array.slice(Math.floor(getRandomNumber(1, array.length)));
+  return array.slice(Math.floor(getRandomNumber(1, array.length - 1)));
 };
 
 var getUserAvatar = function (i) {
@@ -112,9 +112,7 @@ var createAdsArray = function (amount) {
   return ads;
 };
 
-// записываем в переменную массив объявлений
 var ads = createAdsArray(ADS_COUNT);
-// console.log(createAdsArray(ADS_COUNT));
 
 // показывает активное состояние карты
 var map = document.querySelector('.map');
@@ -165,22 +163,12 @@ var getElementPhoto = function (ad) {
   return fragment;
 };
 
-// var removeFaetures = function () {
-//   var featuresRemove = cardTemplate.querySelectorAll('.popup__feature');
-//   var features = cardTemplate.querySelector('.popup__features');
-
-//   for (var i = featuresRemove.length - 1; i >= 0; i--) {
-
-//     featuresRemove.parentElement.removeChild(featuresRemove);
-//   }
-// };
-// concole.log(removeFaetures());
-
 // Создает DOM элемент (объявления на карте)
 var getCardElement = function (ad) {
   var elementCard = cardTemplate.cloneNode(true);
   var card = elementCard.querySelector('.map__card');
   var imgRemove = card.querySelector('.popup__photo');
+  var featuresList = card.querySelector('.popup__features');
 
   //  удаляет все li
   var featureslist = card.querySelectorAll('.popup__feature');
@@ -202,6 +190,33 @@ var getCardElement = function (ad) {
   card.querySelector('.popup__photos').appendChild(getElementPhoto(ad));
   card.querySelector('.popup__avatar').src = ad.author.avatar;
 
+  for (var j = 0; j <= ad.offer.features.length - 1; j++) {
+    if (ad.offer.features[j] === 'wifi') {
+      var wifi = document.createElement('li');
+      wifi.classList.add('popup__feature', 'popup__feature--wifi');
+      featuresList.appendChild(wifi);
+    } if (ad.offer.features[j] === 'dishwasher') {
+      var dishwasher = document.createElement('li');
+      dishwasher.classList.add('popup__feature', 'popup__feature--dishwasher');
+      featuresList.appendChild(dishwasher);
+    } if (ad.offer.features[j] === 'parking') {
+      var parking = document.createElement('li');
+      parking.classList.add('popup__feature', 'popup__feature--parking');
+      featuresList.appendChild(parking);
+    } if (ad.offer.features[j] === 'washer') {
+      var washer = document.createElement('li');
+      washer.classList.add('popup__feature', 'popup__feature--washer');
+      featuresList.appendChild(washer);
+    } if (ad.offer.features[j] === 'washer') {
+      var elevator = document.createElement('li');
+      elevator.classList.add('popup__feature', 'popup__feature--elevator');
+      featuresList.appendChild(elevator);
+    } if (ad.offer.features[j] === 'washer') {
+      var conditioner = document.createElement('li');
+      conditioner.classList.add('popup__feature', 'popup__feature--conditioner');
+      featuresList.appendChild(conditioner);
+    }
+  }
 
   return card;
 };
