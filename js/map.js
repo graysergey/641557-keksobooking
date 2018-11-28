@@ -12,7 +12,7 @@ var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
 var LOCATION_MIN_X = 25;
 var LOCATION_MAX_X = widthMap - 25;
-var DESCRIPTION = 'Великолепные аппартаменты в центре Токио';
+var DESCRIPTION = 'Великолепные аппартаменты в центре Токио (текст для теста)';
 var ADS_COUNT = 8;
 
 var pointers = document.querySelector('.map__pins');
@@ -165,11 +165,29 @@ var getElementPhoto = function (ad) {
   return fragment;
 };
 
+// var removeFaetures = function () {
+//   var featuresRemove = cardTemplate.querySelectorAll('.popup__feature');
+//   var features = cardTemplate.querySelector('.popup__features');
+
+//   for (var i = featuresRemove.length - 1; i >= 0; i--) {
+
+//     featuresRemove.parentElement.removeChild(featuresRemove);
+//   }
+// };
+// concole.log(removeFaetures());
+
 // Создает DOM элемент (объявления на карте)
 var getCardElement = function (ad) {
   var elementCard = cardTemplate.cloneNode(true);
   var card = elementCard.querySelector('.map__card');
   var imgRemove = card.querySelector('.popup__photo');
+
+  //  удаляет все li
+  var featureslist = card.querySelectorAll('.popup__feature');
+  for (var i = featureslist.length - 1; i >= 0; i--) {
+    var child = card.querySelector('.popup__feature:last-child');
+    child.parentElement.removeChild(child);
+  }
 
   card.querySelector('.popup__title').textContent = ad.offer.title;
   card.querySelector('.popup__text--address').textContent = ad.offer.address;
@@ -177,11 +195,13 @@ var getCardElement = function (ad) {
   card.querySelector('.popup__type').textContent = ad.offer.type;
   card.querySelector('.popup__text--capacity').textContent = ad.offer.rooms + ' комнаты для '
     + ad.offer.guests + ' гостей';
-  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
-  // card.querySelector('.popup__features').querySelectorAll('.popup__feature');
+  card.querySelector('.popup__text--time').textContent = 'Заезд после '
+    + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   card.querySelector('.popup__description').textContent = ad.offer.description;
   card.querySelector('.popup__photos').removeChild(imgRemove);
   card.querySelector('.popup__photos').appendChild(getElementPhoto(ad));
+  card.querySelector('.popup__avatar').src = ad.author.avatar;
+
 
   return card;
 };
