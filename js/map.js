@@ -1,6 +1,7 @@
 'use strict';
 
-var widthMap = document.querySelector('.map').offsetWidth;
+var mapWidth = document.querySelector('.map').offsetWidth;
+var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
 
 var PRICE_MIN = 1000;
 var PRICE_MAX = 1000000;
@@ -8,18 +9,16 @@ var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 var GUESTS_MIN = 1;
 var GUESTS_MAX = 15;
-var PIN__HALF__SIZE = 50 / 2;
+var PIN__HALF__SIZE = pinWidth / 2;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
 var LOCATION_MIN_X = PIN__HALF__SIZE;
-var LOCATION_MAX_X = widthMap - PIN__HALF__SIZE;
+var LOCATION_MAX_X = mapWidth - PIN__HALF__SIZE;
 var DESCRIPTION = 'Великолепные аппартаменты в центре Токио (текст для теста)';
 var ADS_COUNT = 8;
 
 var pointers = document.querySelector('.map__pins');
 var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
-// var filtersContainer = document.querySelector('.map__filters-container');
-
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -57,11 +56,11 @@ var getRandomLengthArray = function (array) {
   return array.slice(getRandomNumber(1, array.length - 1));
 };
 
-var getUserAvatar = function (i) {
+var getLinkAvatar = function (i) {
   return 'img/avatars/user0' + (i + 1) + '.png';
 };
 
-var getRandomPlace = function (array) {
+var getRandomPlaces = function (array) {
   var index;
   var indexArray = array[Math.floor(Math.random() * array.length)];
 
@@ -90,14 +89,14 @@ var createAdsArray = function (amount) {
 
     var ad = {
       author: {
-        avatar: getUserAvatar(i)
+        avatar: getLinkAvatar(i)
       },
 
       offer: {
         title: titles[i],
         address: locationX + ', ' + locationY,
         price: getRandomNumber(PRICE_MIN, PRICE_MAX),
-        type: getRandomPlace(types),
+        type: getRandomPlaces(types),
         rooms: getRandomNumber(ROOMS_MIN, ROOMS_MAX),
         guests: getRandomNumber(GUESTS_MIN, GUESTS_MAX),
         checkin: checkinTimes[checkinRandom],
@@ -182,7 +181,6 @@ var renderFeatures = function (features) {
 var getCardElement = function (ad) {
   var elementCard = cardTemplate.cloneNode(true);
   var card = elementCard.querySelector('.map__card');
-  var imgRemove = card.querySelector('.popup__photo');
   var featuresList = card.querySelector('.popup__features');
 
   card.querySelector('.popup__title').textContent = ad.offer.title;
