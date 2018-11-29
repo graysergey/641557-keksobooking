@@ -8,16 +8,18 @@ var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 var GUESTS_MIN = 1;
 var GUESTS_MAX = 15;
+var PIN__HALF__SIZE = 50 / 2;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
-var LOCATION_MIN_X = 25;
-var LOCATION_MAX_X = widthMap - 25;
+var LOCATION_MIN_X = PIN__HALF__SIZE;
+var LOCATION_MAX_X = widthMap - PIN__HALF__SIZE;
 var DESCRIPTION = 'Великолепные аппартаменты в центре Токио (текст для теста)';
 var ADS_COUNT = 8;
 
 var pointers = document.querySelector('.map__pins');
 var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
 // var filtersContainer = document.querySelector('.map__filters-container');
+
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -154,14 +156,24 @@ var cardTemplate = document.querySelector('#card').content;
 // // Создает картинку с адресом
 var getElementPhoto = function (ad) {
   var fragment = document.createDocumentFragment();
-  var createImg;
 
   for (var i = 0; i < ad.offer.photos.length; i++) {
-    createImg = cardTemplate.querySelector('.map__card')
+    var createImg = cardTemplate.querySelector('.map__card')
     .querySelector('.popup__photo').cloneNode(true);
 
     createImg.src = ad.offer.photos[i];
     fragment.appendChild(createImg);
+  }
+  return fragment;
+};
+
+// Создает елемент списка <li>, из массива features
+var renderFeatures = function (features) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < features.length; i++) {
+    var newElement = document.createElement('li');
+    newElement.className = 'popup__feature popup__feature--' + features[i];
+    fragment.appendChild(newElement);
   }
   return fragment;
 };
@@ -182,45 +194,15 @@ var getCardElement = function (ad) {
   card.querySelector('.popup__text--time').textContent = 'Заезд после '
     + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
   card.querySelector('.popup__description').textContent = ad.offer.description;
-  card.querySelector('.popup__photos').removeChild(imgRemove);
+  card.querySelector('.popup__photos').textContent = '';
   card.querySelector('.popup__photos').appendChild(getElementPhoto(ad));
   card.querySelector('.popup__avatar').src = ad.author.avatar;
 
   //  удаляет все li
-  var featureslist = card.querySelectorAll('.popup__feature');
-  for (var i = featureslist.length - 1; i >= 0; i--) {
-    var child = card.querySelector('.popup__feature:last-child');
-    child.parentElement.removeChild(child);
-  }
+  featuresList.textContent = '';
 
-  // Отрисовывает features (пункты меню <li>)
-  for (var j = 0; j <= ad.offer.features.length - 1; j++) {
-    if (ad.offer.features[j] === 'wifi') {
-      var wifi = document.createElement('li');
-      wifi.classList.add('popup__feature', 'popup__feature--wifi');
-      featuresList.appendChild(wifi);
-    } if (ad.offer.features[j] === 'dishwasher') {
-      var dishwasher = document.createElement('li');
-      dishwasher.classList.add('popup__feature', 'popup__feature--dishwasher');
-      featuresList.appendChild(dishwasher);
-    } if (ad.offer.features[j] === 'parking') {
-      var parking = document.createElement('li');
-      parking.classList.add('popup__feature', 'popup__feature--parking');
-      featuresList.appendChild(parking);
-    } if (ad.offer.features[j] === 'washer') {
-      var washer = document.createElement('li');
-      washer.classList.add('popup__feature', 'popup__feature--washer');
-      featuresList.appendChild(washer);
-    } if (ad.offer.features[j] === 'elevator') {
-      var elevator = document.createElement('li');
-      elevator.classList.add('popup__feature', 'popup__feature--elevator');
-      featuresList.appendChild(elevator);
-    } if (ad.offer.features[j] === 'conditioner') {
-      var conditioner = document.createElement('li');
-      conditioner.classList.add('popup__feature', 'popup__feature--conditioner');
-      featuresList.appendChild(conditioner);
-    }
-  }
+  // добавляет из массива li
+  featuresList.appendChild(renderFeatures(ad.offer.features));
 
   return card;
 };
