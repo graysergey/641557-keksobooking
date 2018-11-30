@@ -64,14 +64,14 @@ var getRandomPlaces = function (array) {
   var index;
   var indexArray = array[Math.floor(Math.random() * array.length)];
 
-  if (indexArray === 'flat') {
-    index = 'Квартира';
-  } else if (indexArray === 'bungalo') {
-    index = 'Бунгало';
-  } else if (indexArray === 'house') {
-    index = 'Дом';
-  } else if (indexArray === 'place') {
-    index = 'Дворец';
+  switch (indexArray) {
+    case 'flat': index = 'Квартира';
+      break;
+    case 'bungalo': index = 'Бунгало';
+      break;
+    case 'house': index = 'Дом';
+      break;
+    case 'place': index = 'Дворец';
   }
   return index;
 };
