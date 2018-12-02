@@ -214,4 +214,5 @@ var getFragmentCard = function (array) {
   return fragment;
 };
 
+
 // adOnMap.appendChild(getFragmentCard(ads));
