@@ -119,10 +119,11 @@ var createAdsArray = function (amount) {
 var ads = createAdsArray(ADS_COUNT);
 
 // показывает активное состояние карты
-var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// var map = document.querySelector('.map');
+// map.classList.remove('map--faded');
 
 
+// Далее создаем метки на карте
 var pointerTemplate = document.querySelector('#pin');
 
 // Создает DOM элемент (отметки на карте)
@@ -147,12 +148,13 @@ var getPointerFragment = function (array) {
   }
   return fragment;
 };
-pointers.appendChild(getPointerFragment(ads));
+// pointers.appendChild(getPointerFragment(ads));
 
 
+// Далее, создаем объявление
 var cardTemplate = document.querySelector('#card').content;
 
-// // Создает картинку с адресом
+// Создает картинку из шаблона, и задает ей одрес из массива
 var getElementPhoto = function (ad) {
   var fragment = document.createDocumentFragment();
 
@@ -166,7 +168,7 @@ var getElementPhoto = function (ad) {
   return fragment;
 };
 
-// Создает елемент списка <li>, из массива features
+// Создает <li> - елемент списка, из массива features (картинки удобств)
 var renderFeatures = function (features) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < features.length; i++) {
@@ -212,4 +214,4 @@ var getFragmentCard = function (array) {
   return fragment;
 };
 
-adOnMap.appendChild(getFragmentCard(ads));
+// adOnMap.appendChild(getFragmentCard(ads));
