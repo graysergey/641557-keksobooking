@@ -19,6 +19,8 @@ var ADS_COUNT = 8;
 
 var pointers = document.querySelector('.map__pins');
 var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
+var map = document.querySelector('.map');
+
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -119,7 +121,6 @@ var createAdsArray = function (amount) {
 var ads = createAdsArray(ADS_COUNT);
 
 // показывает активное состояние карты
-// var map = document.querySelector('.map');
 // map.classList.remove('map--faded');
 
 
@@ -148,6 +149,7 @@ var getPointerFragment = function (array) {
   }
   return fragment;
 };
+// Отрисовывает отметки на карте
 // pointers.appendChild(getPointerFragment(ads));
 
 
@@ -213,5 +215,30 @@ var getFragmentCard = function (array) {
   fragment.appendChild(getCardElement(array[0]));
   return fragment;
 };
-
+// Отрисовывает окно объявления на карте
 // adOnMap.appendChild(getFragmentCard(ads));
+
+// Активация интерфейса по нажанию, на главную метку карты.
+var activationInterface = function () {
+  map.classList.remove('map--faded');
+  pointers.appendChild(getPointerFragment(ads));
+  adOnMap.appendChild(getFragmentCard(ads));
+  removeDisabled();
+};
+
+var removeDisabled = function () {
+  var form = document.querySelector('.ad-form');
+  var fieldset = form.querySelectorAll('fieldset');
+  form.classList.remove('ad-form--disabled');
+
+  for (var i = 0; i < fieldset.length; i++) {
+    fieldset[i].removeAttribute('disabled');
+  }
+};
+
+var mapPinMain = pointers.querySelector('.map__pin--main');
+
+mapPinMain.addEventListener('mouseup', function (evt) {
+  evt.preventDefault();
+  activationInterface();
+});
