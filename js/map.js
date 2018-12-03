@@ -2,6 +2,7 @@
 
 var mapWidth = document.querySelector('.map').offsetWidth;
 var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
+var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
 
 var PRICE_MIN = 1000;
 var PRICE_MAX = 1000000;
@@ -9,11 +10,12 @@ var ROOMS_MIN = 1;
 var ROOMS_MAX = 5;
 var GUESTS_MIN = 1;
 var GUESTS_MAX = 15;
-var PIN__HALF__SIZE = pinWidth / 2;
+var PIN__HALF__WIDTH = pinWidth / 2;
+var PIN__HALF__HEIGHT = pinHeight / 2;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
-var LOCATION_MIN_X = PIN__HALF__SIZE;
-var LOCATION_MAX_X = mapWidth - PIN__HALF__SIZE;
+var LOCATION_MIN_X = PIN__HALF__WIDTH;
+var LOCATION_MAX_X = mapWidth - PIN__HALF__WIDTH;
 var DESCRIPTION = 'Великолепные аппартаменты в центре Токио (текст для теста)';
 var ADS_COUNT = 8;
 
@@ -149,8 +151,6 @@ var getPointerFragment = function (array) {
   }
   return fragment;
 };
-// Отрисовывает отметки на карте
-// pointers.appendChild(getPointerFragment(ads));
 
 
 // Далее, создаем объявление
@@ -215,19 +215,23 @@ var getFragmentCard = function (array) {
   fragment.appendChild(getCardElement(array[0]));
   return fragment;
 };
-// Отрисовывает окно объявления на карте
-// adOnMap.appendChild(getFragmentCard(ads));
 
 // Активация интерфейса по нажанию, на главную метку карты.
 var activationInterface = function () {
   map.classList.remove('map--faded');
+
+  // Отрисовывает отметки на карте
   pointers.appendChild(getPointerFragment(ads));
+
+  // Отрисовывает окно объявления на карте
   adOnMap.appendChild(getFragmentCard(ads));
   removeDisabled();
+  getLocationMapPinMain();
 };
 
+// Удаляет disabled у всех fieldset в форме ad-form
+var form = document.querySelector('.ad-form');
 var removeDisabled = function () {
-  var form = document.querySelector('.ad-form');
   var fieldset = form.querySelectorAll('fieldset');
   form.classList.remove('ad-form--disabled');
 
@@ -242,3 +246,17 @@ mapPinMain.addEventListener('mouseup', function (evt) {
   evt.preventDefault();
   activationInterface();
 });
+
+// Найти координаты метки map__pin--main и записать в переменную
+// Используя поиск по  => style="left: 570px; top: 375px;">
+// Найти центр => Вычесть половину метки по вертикали и горизонтали
+// Передать значение метки в поле адреса
+// Учесть то, что координаты метки, это левый верхний угол, а нам нужен центр
+var getLocationMapPinMain = function () {
+  var locationX = String(Math.round(parseInt(mapPinMain.style.left) - PIN__HALF__WIDTH));
+  var locationY = String(Math.round(parseInt(mapPinMain.style.top) - PIN__HALF__HEIGHT));
+  var inputAddress = form.querySelector('#address');
+
+  inputAddress.setAttribute('value', locationX + ', ' + locationY);
+};
+getLocationMapPinMain();
