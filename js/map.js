@@ -4,7 +4,7 @@ var mapWidth = document.querySelector('.map').offsetWidth;
 var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
 var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
 var pointers = document.querySelector('.map__pins');
-var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
+var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
 var map = document.querySelector('.map');
 
 var PRICE_MIN = 1000;
@@ -120,21 +120,18 @@ var createAdsArray = function (amount) {
 
 var ads = createAdsArray(ADS_COUNT);
 
-// показывает активное состояние карты
-// map.classList.remove('map--faded');
-
-
-// Далее создаем метки на карте
+// Далее создание меток
 var pointerTemplate = document.querySelector('#pin');
 
-// Создает DOM элемент (отметки на карте)
-var getPointerElement = function (ad) {
+// Создает DOM элемент (отметки на карте). Присваивает метке индекс
+var getPointerElement = function (ad, index) {
   var elementPointer = pointerTemplate.cloneNode(true).content;
   var pin = elementPointer.querySelector('.map__pin');
   var avatar = elementPointer.querySelector('img');
 
   pin.style.left = ad.location.x + 'px';
   pin.style.top = ad.location.y + 'px';
+  pin.setAttribute('data-id', index);
   avatar.src = ad.author.avatar;
   avatar.alt = ad.offer.title;
 
@@ -145,7 +142,7 @@ var getPointerElement = function (ad) {
 var getPointerFragment = function (array) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < array.length; i++) {
-    fragment.appendChild(getPointerElement(array[i]));
+    fragment.appendChild(getPointerElement(array[i], i));
   }
   return fragment;
 };
@@ -208,22 +205,18 @@ var getCardElement = function (ad) {
 };
 
 // Создает DOM фрагмент (объявления на карте)
-var getFragmentCard = function (array) {
+var getFragmentCard = function (arrIndex) {
   var fragment = document.createDocumentFragment();
-  fragment.appendChild(getCardElement(array[0]));
+  fragment.appendChild(getCardElement(arrIndex));
   return fragment;
 };
 
 // Активация интерфейса по нажанию, на главную метку карты.
-var activationInterface = function () {
+var activateInterface = function () {
   map.classList.remove('map--faded');
-
-  // Отрисовывает отметки на карте
-  pointers.appendChild(getPointerFragment(ads));
-
-  // Отрисовывает окно объявления на карте
-  adOnMap.appendChild(getFragmentCard(ads));
+  pointers.appendChild(getPointerFragment(ads)); // Отрисовывает отметки на карте
   removeDisabled();
+  onPinClick(); // Вызывает функцию (обработчик событий)
 };
 
 // Удаляет disabled у всех fieldset в форме ad-form
@@ -241,7 +234,7 @@ var mapPinMain = pointers.querySelector('.map__pin--main');
 
 mapPinMain.addEventListener('mouseup', function (evt) {
   evt.preventDefault();
-  activationInterface();
+  activateInterface();
 });
 
 // Записывает в поле Адреса - координаты главной метки
@@ -253,3 +246,38 @@ var getLocationMapPinMain = function () {
   inputAddress.setAttribute('value', locationX + ', ' + locationY);
 };
 getLocationMapPinMain();
+
+
+// Отрисовка объявления при нажатии на метку
+
+var closeCardPopup = function () {
+  var card = document.querySelector('.map__card');
+  filtersContainer.removeChild(card);
+};
+
+var doCardPopup = function (pinId) {
+  var card = document.querySelector('.map__card');
+  if (card) {
+    closeCardPopup();
+  }
+  filtersContainer.appendChild(getFragmentCard(ads[pinId]));
+};
+
+var onPinClick = function () {
+  var pinsList = pointers.querySelectorAll('.map__pin:not(.map__pin--main)');
+  for (var i = 0; i < pinsList.length; i++) {
+    pinsList[i].addEventListener('click', function (evt) {
+      evt.preventDefault();
+      var button = evt.currentTarget;
+      var pinId = button.getAttribute('data-id');
+      doCardPopup(pinId);
+
+      var closeButton = document.querySelector('.popup__close');
+      closeButton.addEventListener('click', function () {
+        closeCardPopup();
+      });
+    });
+  }
+};
+
+
