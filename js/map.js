@@ -3,6 +3,9 @@
 var mapWidth = document.querySelector('.map').offsetWidth;
 var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
 var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
+var pointers = document.querySelector('.map__pins');
+var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
+var map = document.querySelector('.map');
 
 var PRICE_MIN = 1000;
 var PRICE_MAX = 1000000;
@@ -18,11 +21,6 @@ var LOCATION_MIN_X = PIN__HALF__WIDTH;
 var LOCATION_MAX_X = mapWidth - PIN__HALF__WIDTH;
 var DESCRIPTION = 'Великолепные аппартаменты в центре Токио (текст для теста)';
 var ADS_COUNT = 8;
-
-var pointers = document.querySelector('.map__pins');
-var adOnMap = document.querySelector('.map').querySelector('.map__filters-container');
-var map = document.querySelector('.map');
-
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -226,7 +224,6 @@ var activationInterface = function () {
   // Отрисовывает окно объявления на карте
   adOnMap.appendChild(getFragmentCard(ads));
   removeDisabled();
-  getLocationMapPinMain();
 };
 
 // Удаляет disabled у всех fieldset в форме ad-form
@@ -247,14 +244,10 @@ mapPinMain.addEventListener('mouseup', function (evt) {
   activationInterface();
 });
 
-// Найти координаты метки map__pin--main и записать в переменную
-// Используя поиск по  => style="left: 570px; top: 375px;">
-// Найти центр => Вычесть половину метки по вертикали и горизонтали
-// Передать значение метки в поле адреса
-// Учесть то, что координаты метки, это левый верхний угол, а нам нужен центр
+// Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
-  var locationX = String(Math.round(parseInt(mapPinMain.style.left) - PIN__HALF__WIDTH));
-  var locationY = String(Math.round(parseInt(mapPinMain.style.top) - PIN__HALF__HEIGHT));
+  var locationX = String(Math.round(parseInt(mapPinMain.style.left, 10) + PIN__HALF__WIDTH));
+  var locationY = String(Math.round(parseInt(mapPinMain.style.top, 10) + PIN__HALF__HEIGHT));
   var inputAddress = form.querySelector('#address');
 
   inputAddress.setAttribute('value', locationX + ', ' + locationY);
