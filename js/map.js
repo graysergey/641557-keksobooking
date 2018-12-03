@@ -212,6 +212,9 @@ var getFragmentCard = function (arrIndex) {
 };
 
 // Активация интерфейса по нажанию, на главную метку карты.
+var ESC__KEYCODE = 27;
+var ENTER__KEYCODE = 13;
+
 var activateInterface = function () {
   map.classList.remove('map--faded');
   pointers.appendChild(getPointerFragment(ads)); // Отрисовывает отметки на карте
@@ -237,6 +240,13 @@ mapPinMain.addEventListener('mouseup', function (evt) {
   activateInterface();
 });
 
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (isEnterEvent(evt)) {
+    evt.preventDefault();
+    activateInterface();
+  }
+});
+
 // Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
   var locationX = String(Math.round(parseInt(mapPinMain.style.left, 10) + PIN__HALF__WIDTH));
@@ -249,6 +259,14 @@ getLocationMapPinMain();
 
 
 // Отрисовка объявления при нажатии на метку
+
+var isEnterEvent = function (evt) {
+  return evt.keyCode === ENTER__KEYCODE;
+};
+
+var isEscapeEvt = function (evt) {
+  return evt.keyCode === ESC__KEYCODE;
+};
 
 var closeCardPopup = function () {
   var card = document.querySelector('.map__card');
@@ -267,7 +285,6 @@ var onPinClick = function () {
   var pinsList = pointers.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pinsList.length; i++) {
     pinsList[i].addEventListener('click', function (evt) {
-      evt.preventDefault();
       var button = evt.currentTarget;
       var pinId = button.getAttribute('data-id');
       doCardPopup(pinId);
@@ -276,8 +293,12 @@ var onPinClick = function () {
       closeButton.addEventListener('click', function () {
         closeCardPopup();
       });
+
+      document.addEventListener('keydown', function (evt) {
+        if (isEscapeEvt(evt)) {
+          closeCardPopup();
+        }
+      });
     });
   }
 };
-
-
