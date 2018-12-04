@@ -67,11 +67,14 @@ var getRandomPlaces = function (array) {
   var indexArray = array[Math.floor(Math.random() * array.length)];
 
   switch (indexArray) {
-    case 'flat': index = 'Квартира';
+    case 'flat':
+      index = 'Квартира';
       break;
-    case 'bungalo': index = 'Бунгало';
+    case 'bungalo':
+      index = 'Бунгало';
       break;
-    case 'house': index = 'Дом';
+    case 'house':
+      index = 'Дом';
       break;
     case 'place': index = 'Дворец';
   }
@@ -273,7 +276,7 @@ var closeCardPopup = function () {
   if (card) {
     card.remove();
   }
-};
+k};
 
 var doCardPopup = function (pinId) {
   var card = document.querySelector('.map__card');
