@@ -4,7 +4,7 @@ var mapWidth = document.querySelector('.map').offsetWidth;
 var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
 var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
 var pointers = document.querySelector('.map__pins');
-// var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
+var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
 var map = document.querySelector('.map');
 
 var PRICE_MIN = 1000;
@@ -278,7 +278,8 @@ var doCardPopup = function (pinId) {
   if (card) {
     closeCardPopup();
   }
-  map.appendChild(getFragmentCard(ads[pinId]));
+  var newCard = getFragmentCard(ads[pinId]);
+  map.insertBefore(newCard, filtersContainer);
 };
 
 var onPinClick = function () {
