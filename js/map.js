@@ -277,7 +277,7 @@ var closeCardPopup = function () {
   if (card) {
     card.remove();
   }
-k};
+};
 
 var doCardPopup = function (pinId) {
   var card = document.querySelector('.map__card');
