@@ -270,7 +270,9 @@ var isEscapeEvt = function (evt) {
 
 var closeCardPopup = function () {
   var card = document.querySelector('.map__card');
-  map.removeChild(card);
+  if (card) {
+    card.remove();
+  }
 };
 
 var doCardPopup = function (pinId) {
