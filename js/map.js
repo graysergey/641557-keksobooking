@@ -4,7 +4,7 @@ var mapWidth = document.querySelector('.map').offsetWidth;
 var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
 var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
 var pointers = document.querySelector('.map__pins');
-var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
+// var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
 var map = document.querySelector('.map');
 
 var PRICE_MIN = 1000;
@@ -270,7 +270,7 @@ var isEscapeEvt = function (evt) {
 
 var closeCardPopup = function () {
   var card = document.querySelector('.map__card');
-  filtersContainer.removeChild(card);
+  map.removeChild(card);
 };
 
 var doCardPopup = function (pinId) {
@@ -278,7 +278,7 @@ var doCardPopup = function (pinId) {
   if (card) {
     closeCardPopup();
   }
-  filtersContainer.appendChild(getFragmentCard(ads[pinId]));
+  map.appendChild(getFragmentCard(ads[pinId]));
 };
 
 var onPinClick = function () {
@@ -294,8 +294,8 @@ var onPinClick = function () {
         closeCardPopup();
       });
 
-      document.addEventListener('keydown', function (evt) {
-        if (isEscapeEvt(evt)) {
+      document.addEventListener('keydown', function (keydownEvt) {
+        if (isEscapeEvt(keydownEvt)) {
           closeCardPopup();
         }
       });
