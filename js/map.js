@@ -244,8 +244,9 @@ mapPinMain.addEventListener('mouseup', function (evt) {
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
+  evt.preventDefault();
+
   if (isEnterEvent(evt)) {
-    evt.preventDefault();
     activateInterface();
   }
 });
