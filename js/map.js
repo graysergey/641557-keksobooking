@@ -309,3 +309,32 @@ var onPinClick = function () {
     });
   }
 };
+
+// Работа с формой
+// module4-task2 (Личный проект: доверяй, но проверяй)
+var countRooms = document.querySelector('#room_number');
+var capacityGuests = document.querySelector('#capacity').querySelectorAll('option');
+
+countRooms.addEventListener('change', function () {
+  if (countRooms.value === '1') {
+    capacityGuests[0].setAttribute('disabled', true);
+    capacityGuests[1].setAttribute('disabled', true);
+    capacityGuests[2].removeAttribute('disabled');
+    capacityGuests[3].setAttribute('disabled', true);
+  } else if (countRooms.value === '2') {
+    capacityGuests[0].setAttribute('disabled', true);
+    capacityGuests[1].removeAttribute('disabled');
+    capacityGuests[2].removeAttribute('disabled');
+    capacityGuests[3].setAttribute('disabled', true);
+  } else if (countRooms.value === '3') {
+    capacityGuests[0].removeAttribute('disabled');
+    capacityGuests[1].removeAttribute('disabled');
+    capacityGuests[2].removeAttribute('disabled');
+    capacityGuests[3].setAttribute('disabled', true);
+  } else if (countRooms.value === '100') {
+    capacityGuests[0].setAttribute('disabled', true);
+    capacityGuests[1].setAttribute('disabled', true);
+    capacityGuests[2].setAttribute('disabled', true);
+    capacityGuests[3].removeAttribute('disabled');
+  }
+});
