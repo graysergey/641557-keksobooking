@@ -375,5 +375,3 @@ var installMinPrice = function (price) {
 typeHose.addEventListener('change', function (evt) {
   installMinPrice(minPrice[evt.target.value]);
 });
-
-// 
