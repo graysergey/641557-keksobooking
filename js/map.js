@@ -314,6 +314,7 @@ var onPinClick = function () {
 // module4-task2 (Личный проект: доверяй, но проверяй)
 var countRooms = document.querySelector('#room_number');
 var capacityGuests = document.querySelector('#capacity').querySelectorAll('option');
+var capasitySelect = document.querySelector('#capacity');
 
 var changeCapacityPlaces = function () {
   if (countRooms.value === '1') {
@@ -321,21 +322,25 @@ var changeCapacityPlaces = function () {
     capacityGuests[1].setAttribute('disabled', true);
     capacityGuests[2].removeAttribute('disabled');
     capacityGuests[3].setAttribute('disabled', true);
+    capasitySelect.value = '1';
   } else if (countRooms.value === '2') {
     capacityGuests[0].setAttribute('disabled', true);
     capacityGuests[1].removeAttribute('disabled');
     capacityGuests[2].removeAttribute('disabled');
     capacityGuests[3].setAttribute('disabled', true);
+    capasitySelect.value = '2';
   } else if (countRooms.value === '3') {
     capacityGuests[0].removeAttribute('disabled');
     capacityGuests[1].removeAttribute('disabled');
     capacityGuests[2].removeAttribute('disabled');
     capacityGuests[3].setAttribute('disabled', true);
+    capasitySelect.value = '3';
   } else if (countRooms.value === '100') {
     capacityGuests[0].setAttribute('disabled', true);
     capacityGuests[1].setAttribute('disabled', true);
     capacityGuests[2].setAttribute('disabled', true);
     capacityGuests[3].removeAttribute('disabled');
+    capasitySelect.value = '0';
   }
 };
 
@@ -352,3 +357,5 @@ timesIn.addEventListener('change', function (evt) {
 timesOut.addEventListener('change', function (evt) {
   timesIn.value = evt.target.value;
 });
+
+
