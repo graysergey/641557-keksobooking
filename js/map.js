@@ -340,3 +340,15 @@ var changeCapacityPlaces = function () {
 };
 
 countRooms.addEventListener('change', changeCapacityPlaces);
+
+// Делает зависимость времени заезда и выезда
+var timesIn = document.querySelector('#timein');
+var timesOut = document.querySelector('#timeout');
+
+timesIn.addEventListener('change', function (evt) {
+  timesOut.value = evt.target.value;
+});
+
+timesOut.addEventListener('change', function (evt) {
+  timesIn.value = evt.target.value;
+});
