@@ -315,7 +315,7 @@ var onPinClick = function () {
 var countRooms = document.querySelector('#room_number');
 var capacityGuests = document.querySelector('#capacity').querySelectorAll('option');
 
-countRooms.addEventListener('change', function () {
+var changeCapacityPlaces = function () {
   if (countRooms.value === '1') {
     capacityGuests[0].setAttribute('disabled', true);
     capacityGuests[1].setAttribute('disabled', true);
@@ -337,4 +337,6 @@ countRooms.addEventListener('change', function () {
     capacityGuests[2].setAttribute('disabled', true);
     capacityGuests[3].removeAttribute('disabled');
   }
-});
+};
+
+countRooms.addEventListener('change', changeCapacityPlaces);
