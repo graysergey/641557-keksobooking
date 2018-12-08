@@ -19,7 +19,6 @@ var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
 var LOCATION_MIN_X = PIN__HALF__WIDTH;
 var LOCATION_MAX_X = mapWidth - PIN__HALF__WIDTH;
-var DESCRIPTION = 'Великолепные аппартаменты в центре Токио (текст для теста)';
 var ADS_COUNT = 8;
 
 var titles = ['Большая уютная квартира',
@@ -31,13 +30,19 @@ var titles = ['Большая уютная квартира',
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'];
 
-var types = ['palace', 'flat', 'house', 'bungalo'];
+var types = ['bungalo', 'house', 'flat', 'place'];
 var checkinTimes = ['12:00', '13:00', '14:00'];
 var checkoutTimes = ['12:00', '13:00', '14:00'];
 var featuresArray = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var minPrice = {
+  bungalo: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000
+};
 
 // Перемешивает массив
 var shuffleArray = function (array) {
@@ -107,7 +112,7 @@ var createAdsArray = function (amount) {
         checkin: checkinTimes[checkinRandom],
         checkout: checkoutTimes[checkoutRandom],
         features: getRandomLengthArray(featuresArray),
-        description: DESCRIPTION,
+        description: '',
         photos: shuffleArray(photos)
       },
 
@@ -309,3 +314,64 @@ var onPinClick = function () {
     });
   }
 };
+
+// Работа с формой
+// module4-task2 (Личный проект: доверяй, но проверяй)
+var selectRoomNumber = document.querySelector('#room_number');
+var capasitySelectGroop = document.querySelector('#capacity');
+var capacitySelectItem = capasitySelectGroop.querySelectorAll('option');
+
+var onCapacityPlacesChange = function () {
+  if (selectRoomNumber.value === '1') {
+    capacitySelectItem[0].setAttribute('disabled', true);
+    capacitySelectItem[1].setAttribute('disabled', true);
+    capacitySelectItem[2].removeAttribute('disabled');
+    capacitySelectItem[3].setAttribute('disabled', true);
+    capasitySelectGroop.value = '1';
+  } else if (selectRoomNumber.value === '2') {
+    capacitySelectItem[0].setAttribute('disabled', true);
+    capacitySelectItem[1].removeAttribute('disabled');
+    capacitySelectItem[2].removeAttribute('disabled');
+    capacitySelectItem[3].setAttribute('disabled', true);
+    capasitySelectGroop.value = '2';
+  } else if (selectRoomNumber.value === '3') {
+    capacitySelectItem[0].removeAttribute('disabled');
+    capacitySelectItem[1].removeAttribute('disabled');
+    capacitySelectItem[2].removeAttribute('disabled');
+    capacitySelectItem[3].setAttribute('disabled', true);
+    capasitySelectGroop.value = '3';
+  } else if (selectRoomNumber.value === '100') {
+    capacitySelectItem[0].setAttribute('disabled', true);
+    capacitySelectItem[1].setAttribute('disabled', true);
+    capacitySelectItem[2].setAttribute('disabled', true);
+    capacitySelectItem[3].removeAttribute('disabled');
+    capasitySelectGroop.value = '0';
+  }
+};
+
+selectRoomNumber.addEventListener('change', onCapacityPlacesChange);
+
+// Делает зависимость времени заезда и выезда
+var timesIn = document.querySelector('#timein');
+var timesOut = document.querySelector('#timeout');
+
+timesIn.addEventListener('change', function (evt) {
+  timesOut.value = evt.target.value;
+});
+
+timesOut.addEventListener('change', function (evt) {
+  timesIn.value = evt.target.value;
+});
+
+// Устанавливает минимальную цену учитывая тип жилья
+var priceInput = document.querySelector('#price');
+var typeHose = document.querySelector('#type');
+
+var setMinPrice = function (price) {
+  priceInput.min = price;
+  priceInput.placeholder = price;
+};
+
+typeHose.addEventListener('change', function (evt) {
+  setMinPrice(minPrice[evt.target.value]);
+});
