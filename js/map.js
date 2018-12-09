@@ -361,9 +361,6 @@ typeHose.addEventListener('change', function (evt) {
   setMinPrice(minPrice[evt.target.value]);
 });
 
-
-var PIN__ARROW = 12;
-
 // Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
   var locationX = String(Math.round(parseInt(mapPinMain.style.left, 10) + PIN__HALF__WIDTH));
@@ -375,9 +372,12 @@ var getLocationMapPinMain = function () {
 };
 getLocationMapPinMain();
 
-// module5-task1 Личный проект: максимум подвижности
-// Ограничить движение метки в допустимых пределах
 
+// module5-task1 Личный проект: максимум подвижности
+var PIN__ARROW = 12;
+
+// Вешает обработчик движения на пин. Активирует карту в движении
+// Ограничивает движение пина по карте в заданых размерах
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
@@ -438,10 +438,8 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     getLocationMapPinMain();
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUP);
-
   };
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUP);
 });
-
