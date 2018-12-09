@@ -277,6 +277,7 @@ var doCardPopup = function (pinId) {
   map.insertBefore(newCard, filtersContainer);
 };
 
+// Вешает обработчик событий для работы со всеми пинами
 var onPinClick = function () {
   var pinsList = pointers.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < pinsList.length; i++) {
@@ -361,7 +362,7 @@ typeHose.addEventListener('change', function (evt) {
 });
 
 
-var PIN__ARROW = 22;
+var PIN__ARROW = 12;
 
 // Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
@@ -380,7 +381,7 @@ getLocationMapPinMain();
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
-  var startCoordinetes = {
+  var startCoords = {
     x: evt.clientX,
     y: evt.clientY
   };
@@ -389,18 +390,47 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     moveEvt.preventDefault();
     activateInterface();
 
-    var coordsPinMove = {
-      x: startCoordinetes.x - moveEvt.clientX,
-      y: startCoordinetes.y - moveEvt.clientY
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
     };
 
-    startCoordinetes = {
+    startCoords = {
       x: moveEvt.clientX,
       y: moveEvt.clientY
     };
 
-    mapPinMain.style.top = (mapPinMain.offsetTop - coordsPinMove.y) + 'px';
-    mapPinMain.style.left = (mapPinMain.offsetLeft - coordsPinMove.x) + 'px';
+    var newCoordsX = mapPinMain.offsetLeft - shift.x;
+    var newCoordsY = mapPinMain.offsetTop - shift.y;
+
+    var minCoords = {
+      x: Math.floor(LOCATION_MIN_X - PIN__HALF__WIDTH),
+      y: Math.floor(LOCATION_MIN_Y - pinHeight)
+    };
+
+    var maxCoords = {
+      x: Math.floor(mapWidth - pinWidth),
+      y: Math.floor(LOCATION_MAX_Y - PIN__HALF__HEIGHT)
+    };
+
+    if (newCoordsY < minCoords.y) {
+      newCoordsY = minCoords.y;
+    }
+
+    if (newCoordsY > maxCoords.y) {
+      newCoordsY = maxCoords.y;
+    }
+
+    if (newCoordsX < minCoords.x) {
+      newCoordsX = minCoords.x;
+    }
+
+    if (newCoordsX > maxCoords.x) {
+      newCoordsX = maxCoords.x;
+    }
+
+    mapPinMain.style.left = newCoordsX + 'px';
+    mapPinMain.style.top = newCoordsY + 'px';
   };
 
   var onMouseUP = function (upEvt) {
