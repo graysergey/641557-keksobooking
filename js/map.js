@@ -223,38 +223,38 @@ var getFragmentCard = function (arrIndex) {
 var ESC__KEYCODE = 27;
 var ENTER__KEYCODE = 13;
 
-var activateInterface = function () {
-  map.classList.remove('map--faded');
-  pointers.appendChild(getPointerFragment(ads)); // Отрисовывает отметки на карте
-  removeDisabled();
-  onPinClick(); // Вызывает функцию (обработчик событий)
-};
+// var activateInterface = function () {
+//   map.classList.remove('map--faded');
+//   pointers.appendChild(getPointerFragment(ads)); // Отрисовывает отметки на карте
+//   removeDisabled();
+//   onPinClick(); // Вызывает функцию (обработчик событий)
+// };
 
 // Удаляет disabled у всех fieldset в форме ad-form
 var form = document.querySelector('.ad-form');
-var removeDisabled = function () {
-  var fieldset = form.querySelectorAll('fieldset');
-  form.classList.remove('ad-form--disabled');
+// var removeDisabled = function () {
+//   var fieldset = form.querySelectorAll('fieldset');
+//   form.classList.remove('ad-form--disabled');
 
-  for (var i = 0; i < fieldset.length; i++) {
-    fieldset[i].removeAttribute('disabled');
-  }
-};
+//   for (var i = 0; i < fieldset.length; i++) {
+//     fieldset[i].removeAttribute('disabled');
+//   }
+// };
 
 var mapPinMain = pointers.querySelector('.map__pin--main');
+console.log(mapPinMain.offsetTop);
 
-mapPinMain.addEventListener('mouseup', function (evt) {
-  evt.preventDefault();
-  activateInterface();
-});
+// mapPinMain.addEventListener('mouseup', function () {
+//   activateInterface();
+// });
 
-mapPinMain.addEventListener('keydown', function (evt) {
-  evt.preventDefault();
+// mapPinMain.addEventListener('keydown', function (evt) {
+//   evt.preventDefault();
 
-  if (isEnterEvent(evt)) {
-    activateInterface();
-  }
-});
+//   if (isEnterEvent(evt)) {
+//     activateInterface();
+//   }
+// });
 
 // Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
@@ -293,27 +293,27 @@ var doCardPopup = function (pinId) {
   map.insertBefore(newCard, filtersContainer);
 };
 
-var onPinClick = function () {
-  var pinsList = pointers.querySelectorAll('.map__pin:not(.map__pin--main)');
-  for (var i = 0; i < pinsList.length; i++) {
-    pinsList[i].addEventListener('click', function (evt) {
-      var button = evt.currentTarget;
-      var pinId = button.getAttribute('data-id');
-      doCardPopup(pinId);
+// var onPinClick = function () {
+//   var pinsList = pointers.querySelectorAll('.map__pin:not(.map__pin--main)');
+//   for (var i = 0; i < pinsList.length; i++) {
+//     pinsList[i].addEventListener('click', function (evt) {
+//       var button = evt.currentTarget;
+//       var pinId = button.getAttribute('data-id');
+//       doCardPopup(pinId);
 
-      var closeButton = document.querySelector('.popup__close');
-      closeButton.addEventListener('click', function () {
-        closeCardPopup();
-      });
+//       var closeButton = document.querySelector('.popup__close');
+//       closeButton.addEventListener('click', function () {
+//         closeCardPopup();
+//       });
 
-      document.addEventListener('keydown', function (keydownEvt) {
-        if (isEscapeEvt(keydownEvt)) {
-          closeCardPopup();
-        }
-      });
-    });
-  }
-};
+//       document.addEventListener('keydown', function (keydownEvt) {
+//         if (isEscapeEvt(keydownEvt)) {
+//           closeCardPopup();
+//         }
+//       });
+//     });
+//   }
+// };
 
 // Работа с формой
 // module4-task2 (Личный проект: доверяй, но проверяй)
@@ -375,3 +375,51 @@ var setMinPrice = function (price) {
 typeHose.addEventListener('change', function (evt) {
   setMinPrice(minPrice[evt.target.value]);
 });
+
+// module5-task1 Личный проект: максимум подвижности
+
+// Найти пин
+// Повесить обработчик нажатия
+// В него положить два обработчика - движение и отпускание
+// В движении должна быть логика по движению
+// После того когда отпускаем пин, карта должна становиться активной
+// Когда отпускаем пин, в поле адрес должны записываться координаты метки
+// Ограничить движение метки в допустимых пределах
+
+mapPinMain.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoordinetes = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+
+  var isDraged = false;
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+    isDraged = true;
+
+    var coordsPinMove = {
+      x: startCoordinetes.x - moveEvt.clientX,
+      y: startCoordinetes.x - moveEvt.clientY
+    };
+
+    startCoordinetes = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    mapPinMain.style.top = (mapPinMain.offsetTop - coordsPinMove.x) + 'px';
+    mapPinMain.style.left = (mapPinMain.offsetLeft - coordsPinMove.y) + 'px';
+  };
+
+  var onMouseUP = function (upEvt) {
+    upEvt.preventDefault();
+
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUP);
+});
+
