@@ -360,18 +360,22 @@ typeHose.addEventListener('change', function (evt) {
   setMinPrice(minPrice[evt.target.value]);
 });
 
+
+var PIN__ARROW = 22;
+
 // Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
   var locationX = String(Math.round(parseInt(mapPinMain.style.left, 10) + PIN__HALF__WIDTH));
   var locationY = String(Math.round(parseInt(mapPinMain.style.top, 10) + PIN__HALF__HEIGHT));
   var inputAddress = form.querySelector('#address');
 
-  inputAddress.setAttribute('value', locationX + ', ' + locationY);
+  inputAddress.setAttribute('value', locationX + ', '
+    + Math.round(((locationY - PIN__HALF__HEIGHT) + PIN__ARROW + pinHeight)));
 };
 getLocationMapPinMain();
+
 // module5-task1 Личный проект: максимум подвижности
 // Ограничить движение метки в допустимых пределах
-// Учесть размеры хвостика пина
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
