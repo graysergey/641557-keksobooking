@@ -7,21 +7,6 @@ var pointers = document.querySelector('.map__pins');
 var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
 var map = document.querySelector('.map');
 
-var PRICE_MIN = 1000;
-var PRICE_MAX = 1000000;
-var ROOMS_MIN = 1;
-var ROOMS_MAX = 5;
-var GUESTS_MIN = 1;
-var GUESTS_MAX = 15;
-var PIN__HALF__WIDTH = pinWidth / 2;
-var PIN__HALF__HEIGHT = pinHeight / 2;
-var LOCATION_MIN_Y = 130;
-var LOCATION_MAX_Y = 630;
-var LOCATION_MIN_X = PIN__HALF__WIDTH;
-var LOCATION_MAX_X = mapWidth - PIN__HALF__WIDTH;
-var ADS_COUNT = 8;
-var PIN__ARROW = 12;
-
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
   'Огромный прекрасный дворец',
@@ -220,9 +205,8 @@ var getFragmentCard = function (arrIndex) {
   return fragment;
 };
 
+
 // Активация интерфейса по нажанию, на главную метку карты.
-var ESC__KEYCODE = 27;
-var ENTER__KEYCODE = 13;
 
 var activateInterface = function () {
   map.classList.remove('map--faded');
