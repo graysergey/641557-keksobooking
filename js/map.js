@@ -20,6 +20,7 @@ var LOCATION_MAX_Y = 630;
 var LOCATION_MIN_X = PIN__HALF__WIDTH;
 var LOCATION_MAX_X = mapWidth - PIN__HALF__WIDTH;
 var ADS_COUNT = 8;
+var PIN__ARROW = 12;
 
 var titles = ['Большая уютная квартира',
   'Маленькая неуютная квартира',
@@ -363,18 +364,16 @@ typeHose.addEventListener('change', function (evt) {
 
 // Записывает в поле Адреса - координаты главной метки
 var getLocationMapPinMain = function () {
-  var locationX = String(Math.round(parseInt(mapPinMain.style.left, 10) + PIN__HALF__WIDTH));
-  var locationY = String(Math.round(parseInt(mapPinMain.style.top, 10) + PIN__HALF__HEIGHT));
+  var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + PIN__HALF__WIDTH);
+  var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + PIN__HALF__HEIGHT);
   var inputAddress = form.querySelector('#address');
 
-  inputAddress.setAttribute('value', locationX + ', '
-    + Math.round(((locationY - PIN__HALF__HEIGHT) + PIN__ARROW + pinHeight)));
+  inputAddress.setAttribute('value', locationX + ', ' + Math.round(((locationY - PIN__HALF__HEIGHT) + PIN__ARROW + pinHeight)));
 };
 getLocationMapPinMain();
 
 
 // module5-task1 Личный проект: максимум подвижности
-var PIN__ARROW = 12;
 
 // Вешает обработчик движения на пин. Активирует карту в движении
 // Ограничивает движение пина по карте в заданых размерах
@@ -433,13 +432,13 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     mapPinMain.style.top = newCoordsY + 'px';
   };
 
-  var onMouseUP = function (upEvt) {
+  var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
     getLocationMapPinMain();
     document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUP);
+    document.removeEventListener('mouseup', onMouseUp);
   };
 
   document.addEventListener('mousemove', onMouseMove);
-  document.addEventListener('mouseup', onMouseUP);
+  document.addEventListener('mouseup', onMouseUp);
 });
