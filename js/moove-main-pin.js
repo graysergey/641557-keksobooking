@@ -1,9 +1,15 @@
 'use strict';
 
-// module5-task1 Личный проект: максимум подвижности
+var mapWidth = document.querySelector('.map').offsetWidth;
+var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
+var pinWidth = mapPinMain.offsetWidth;
+var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
+var PIN__HALF__WIDTH = pinWidth / 2;
+var PIN__HALF__HEIGHT = pinHeight / 2;
+var LOCATION_MIN_Y = 130;
+var LOCATION_MAX_Y = 630;
+var LOCATION_MIN_X = PIN__HALF__WIDTH;
 
-// Вешает обработчик движения на пин. Активирует карту в движении
-// Ограничивает движение пина по карте в заданых размерах
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
@@ -14,7 +20,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
-    activateInterface();
+    Window.activateInterface();
 
     var shift = {
       x: startCoords.x - moveEvt.clientX,
@@ -61,7 +67,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-    getLocationMapPinMain();
+    Window.form.getLocationMapPinMain();
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };
@@ -69,4 +75,3 @@ mapPinMain.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-
