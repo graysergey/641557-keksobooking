@@ -48,8 +48,8 @@
   // Вешает обработчики событий на метки
   var onPinClick = function () {
     var pinsList = pins.querySelectorAll('.map__pin:not(.map__pin--main)');
-    for (var i = 0; i < pinsList.length; i++) {
-      pinsList[i].addEventListener('click', function (evt) {
+    pinsList.forEach(function (item) {
+      item.addEventListener('click', function (evt) {
         var button = evt.currentTarget;
         var pinId = button.getAttribute('data-id');
         doCardPopup(pinId);
@@ -65,7 +65,7 @@
           }
         });
       });
-    }
+    });
   };
 
   window.activateInterface = activateInterface;
