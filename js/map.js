@@ -2,8 +2,8 @@
 
 (function () {
 
-  var pointers = document.querySelector('.map__pins');
-  var mapPinMain = pointers.querySelector('.map__pin--main');
+  var pins = document.querySelector('.map__pins');
+  var mapPinMain = pins.querySelector('.map__pin--main');
   var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
   var map = document.querySelector('.map');
 
@@ -12,7 +12,7 @@
 
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    pointers.appendChild(window.pin(window.adverts)); // Отрисовывает отметки на карте
+    pins.appendChild(window.pin(window.adverts)); // Отрисовывает отметки на карте
     window.form.removeDisabled();
     onPinClick(); // Вызывает функцию (обработчик событий)
   };
@@ -47,7 +47,7 @@
 
   // Вешает обработчики событий на метки
   var onPinClick = function () {
-    var pinsList = pointers.querySelectorAll('.map__pin:not(.map__pin--main)');
+    var pinsList = pins.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var i = 0; i < pinsList.length; i++) {
       pinsList[i].addEventListener('click', function (evt) {
         var button = evt.currentTarget;
