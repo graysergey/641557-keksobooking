@@ -86,10 +86,8 @@
 
   // Записывает в поле Адреса - координаты главной метки
   var getLocationMapPinMain = function () {
-    var locationX = Math.round(parseInt(mapPinMain.style.left, 10)
-      + PIN_HALF_WIDTH);
-    var locationY = Math.round(parseInt(mapPinMain.style.top, 10)
-      + PIN_HALF_HEIGHT);
+    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + PIN_HALF_WIDTH);
+    var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + PIN_HALF_HEIGHT);
     var inputAddress = form.querySelector('#address');
 
     inputAddress.setAttribute('value', locationX + ', '
