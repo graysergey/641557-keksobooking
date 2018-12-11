@@ -61,7 +61,7 @@
 
   // Создает массив объявлений
   var createAdsArray = function (amount) {
-    var ads = [];
+    var adverts = [];
 
     for (var i = 0; i < amount; i++) {
       var locationX = Window.utils.getRandomNumber(LOCATION_MIN_X, LOCATION_MAX_X);
@@ -70,7 +70,7 @@
       var checkoutRandom = Math.floor(Math.random() * checkoutTimes.length);
 
 
-      var ad = {
+      var card = {
         author: {
           avatar: getLinkAvatar(i)
         },
@@ -94,11 +94,11 @@
           y: locationY
         }
       };
-      ads.push(ad);
+      adverts.push(card);
     }
-    return ads;
+    return adverts;
   };
 
-  Window.ads = createAdsArray(ADS_COUNT);
+  Window.adverts = createAdsArray(ADS_COUNT);
 
 })();

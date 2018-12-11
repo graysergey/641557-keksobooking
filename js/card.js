@@ -6,14 +6,14 @@
   var cardTemplate = document.querySelector('#card').content;
 
   // Создает картинку из шаблона, и задает ей одрес из массива
-  var getElementPhoto = function (ad) {
+  var getElementPhoto = function (advert) {
     var fragment = document.createDocumentFragment();
 
-    for (var i = 0; i < ad.offer.photos.length; i++) {
+    for (var i = 0; i < advert.offer.photos.length; i++) {
       var createImg = cardTemplate.querySelector('.map__card')
       .querySelector('.popup__photo').cloneNode(true);
 
-      createImg.src = ad.offer.photos[i];
+      createImg.src = advert.offer.photos[i];
       fragment.appendChild(createImg);
     }
     return fragment;

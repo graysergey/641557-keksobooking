@@ -12,7 +12,7 @@
 
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    pointers.appendChild(Window.pin(Window.ads)); // Отрисовывает отметки на карте
+    pointers.appendChild(Window.pin(Window.adverts)); // Отрисовывает отметки на карте
     Window.form.removeDisabled();
     onPinClick(); // Вызывает функцию (обработчик событий)
   };
@@ -41,7 +41,7 @@
     if (card) {
       closeCardPopup();
     }
-    var newCard = Window.card(Window.ads[pinId]);
+    var newCard = Window.card(Window.adverts[pinId]);
     map.insertBefore(newCard, filtersContainer);
   };
 

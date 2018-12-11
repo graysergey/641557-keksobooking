@@ -6,16 +6,16 @@
   var pointerTemplate = document.querySelector('#pin');
 
   // Создает D OM элемент (отметки на карте). Присваивает метке индекс
-  var getPointerElement = function (ad, index) {
+  var getPointerElement = function (card, index) {
     var elementPointer = pointerTemplate.cloneNode(true).content;
     var pin = elementPointer.querySelector('.map__pin');
     var avatar = elementPointer.querySelector('img');
 
-    pin.style.left = ad.location.x + 'px';
-    pin.style.top = ad.location.y + 'px';
+    pin.style.left = card.location.x + 'px';
+    pin.style.top = card.location.y + 'px';
     pin.setAttribute('data-id', index);
-    avatar.src = ad.author.avatar;
-    avatar.alt = ad.offer.title;
+    avatar.src = card.author.avatar;
+    avatar.alt = card.offer.title;
 
     return elementPointer;
   };
