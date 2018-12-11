@@ -34,6 +34,6 @@
     }
   };
 
-  Window.utils = utils;
+  window.utils = utils;
 
 })();

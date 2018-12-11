@@ -12,15 +12,15 @@
 
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    pointers.appendChild(Window.pin(Window.adverts)); // Отрисовывает отметки на карте
-    Window.form.removeDisabled();
+    pointers.appendChild(window.pin(window.adverts)); // Отрисовывает отметки на карте
+    window.form.removeDisabled();
     onPinClick(); // Вызывает функцию (обработчик событий)
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
     evt.preventDefault();
 
-    if (Window.utils.isEnterEvent(evt)) {
+    if (window.utils.isEnterEvent(evt)) {
       activateInterface();
     }
   });
@@ -41,7 +41,7 @@
     if (card) {
       closeCardPopup();
     }
-    var newCard = Window.card(Window.adverts[pinId]);
+    var newCard = window.card(window.adverts[pinId]);
     map.insertBefore(newCard, filtersContainer);
   };
 
@@ -60,7 +60,7 @@
         });
 
         document.addEventListener('keydown', function (keydownEvt) {
-          if (Window.utils.isEscapeEvt(keydownEvt)) {
+          if (window.utils.isEscapeEvt(keydownEvt)) {
             closeCardPopup();
           }
         });
@@ -68,6 +68,6 @@
     }
   };
 
-  Window.activateInterface = activateInterface;
+  window.activateInterface = activateInterface;
 
 })();

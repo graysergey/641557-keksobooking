@@ -29,6 +29,6 @@
     return fragment;
   };
 
-  Window.pin = getPointerFragment;
+  window.pin = getPointerFragment;
 
 })();

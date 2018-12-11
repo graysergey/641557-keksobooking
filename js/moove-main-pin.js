@@ -20,7 +20,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
-    Window.activateInterface();
+    window.activateInterface();
 
     var shift = {
       x: startCoords.x - moveEvt.clientX,
@@ -67,7 +67,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-    Window.form.getLocationMapPinMain();
+    window.form.getLocationMapPinMain();
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
   };

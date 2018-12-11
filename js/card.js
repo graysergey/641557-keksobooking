@@ -65,6 +65,6 @@
     return fragment;
   };
 
-  Window.card = getFragmentCard;
+  window.card = getFragmentCard;
 
 })();

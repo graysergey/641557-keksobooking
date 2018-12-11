@@ -64,8 +64,8 @@
     var adverts = [];
 
     for (var i = 0; i < amount; i++) {
-      var locationX = Window.utils.getRandomNumber(LOCATION_MIN_X, LOCATION_MAX_X);
-      var locationY = Window.utils.getRandomNumber(LOCATION_MIN_Y, LOCATION_MAX_Y);
+      var locationX = window.utils.getRandomNumber(LOCATION_MIN_X, LOCATION_MAX_X);
+      var locationY = window.utils.getRandomNumber(LOCATION_MIN_Y, LOCATION_MAX_Y);
       var checkinRandom = Math.floor(Math.random() * checkinTimes.length);
       var checkoutRandom = Math.floor(Math.random() * checkoutTimes.length);
 
@@ -78,15 +78,15 @@
         offer: {
           title: titles[i],
           address: locationX + ', ' + locationY,
-          price: Window.utils.getRandomNumber(PRICE_MIN, PRICE_MAX),
+          price: window.utils.getRandomNumber(PRICE_MIN, PRICE_MAX),
           type: getRandomPlaces(types),
-          rooms: Window.utils.getRandomNumber(ROOMS_MIN, ROOMS_MAX),
-          guests: Window.utils.getRandomNumber(GUESTS_MIN, GUESTS_MAX),
+          rooms: window.utils.getRandomNumber(ROOMS_MIN, ROOMS_MAX),
+          guests: window.utils.getRandomNumber(GUESTS_MIN, GUESTS_MAX),
           checkin: checkinTimes[checkinRandom],
           checkout: checkoutTimes[checkoutRandom],
-          features: Window.utils.getRandomLengthArray(featuresArray),
+          features: window.utils.getRandomLengthArray(featuresArray),
           description: '',
-          photos: Window.utils.shuffleArray(photos)
+          photos: window.utils.shuffleArray(photos)
         },
 
         location: {
@@ -99,6 +99,6 @@
     return adverts;
   };
 
-  Window.adverts = createAdsArray(ADS_COUNT);
+  window.adverts = createAdsArray(ADS_COUNT);
 
 })();

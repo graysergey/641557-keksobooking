@@ -97,7 +97,7 @@
   };
   getLocationMapPinMain();
 
-  Window.form = {
+  window.form = {
     removeDisabled: removeDisabled,
     getLocationMapPinMain: getLocationMapPinMain
   };
