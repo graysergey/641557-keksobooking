@@ -2,8 +2,8 @@
 
 (function () {
 
-  var ESC__KEYCODE = 27;
-  var ENTER__KEYCODE = 13;
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
 
   var utils = {
     // Перемешивает массив
@@ -26,11 +26,11 @@
     },
 
     isEnterEvent: function (evt) {
-      return evt.keyCode === ENTER__KEYCODE;
+      return evt.keyCode === ENTER_KEYCODE;
     },
 
     isEscapeEvt: function (evt) {
-      return evt.keyCode === ESC__KEYCODE;
+      return evt.keyCode === ESC_KEYCODE;
     }
   };
 

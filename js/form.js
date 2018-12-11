@@ -8,9 +8,9 @@
   var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
   var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
   var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
-  var PIN__ARROW = 12;
-  var PIN__HALF__HEIGHT = pinHeight / 2;
-  var PIN__HALF__WIDTH = pinWidth / 2;
+  var PIN_ARROW = 12;
+  var PIN_HALF_HEIGHT = pinHeight / 2;
+  var PIN_HALF_WIDTH = pinWidth / 2;
   var minPrice = {
     bungalo: 0,
     flat: 1000,
@@ -87,13 +87,13 @@
   // Записывает в поле Адреса - координаты главной метки
   var getLocationMapPinMain = function () {
     var locationX = Math.round(parseInt(mapPinMain.style.left, 10)
-      + PIN__HALF__WIDTH);
+      + PIN_HALF_WIDTH);
     var locationY = Math.round(parseInt(mapPinMain.style.top, 10)
-      + PIN__HALF__HEIGHT);
+      + PIN_HALF_HEIGHT);
     var inputAddress = form.querySelector('#address');
 
     inputAddress.setAttribute('value', locationX + ', '
-      + Math.round(((locationY - PIN__HALF__HEIGHT) + PIN__ARROW + pinHeight)));
+      + Math.round(((locationY - PIN_HALF_HEIGHT) + PIN_ARROW + pinHeight)));
   };
   getLocationMapPinMain();
 

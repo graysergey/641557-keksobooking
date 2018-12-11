@@ -11,11 +11,11 @@
   var ROOMS_MAX = 5;
   var GUESTS_MIN = 1;
   var GUESTS_MAX = 15;
-  var PIN__HALF__WIDTH = pinWidth / 2;
+  var PIN_HALF_WIDTH = pinWidth / 2;
   var LOCATION_MIN_Y = 130;
   var LOCATION_MAX_Y = 630;
-  var LOCATION_MIN_X = PIN__HALF__WIDTH;
-  var LOCATION_MAX_X = mapWidth - PIN__HALF__WIDTH;
+  var LOCATION_MIN_X = PIN_HALF_WIDTH;
+  var LOCATION_MAX_X = mapWidth - PIN_HALF_WIDTH;
   var ADS_COUNT = 8;
 
 
@@ -41,22 +41,22 @@
   };
 
   var getRandomPlaces = function (array) {
-    var index;
+    var houseType;
     var indexArray = array[Math.floor(Math.random() * array.length)];
 
     switch (indexArray) {
       case 'flat':
-        index = 'Квартира';
+        houseType = 'Квартира';
         break;
       case 'bungalo':
-        index = 'Бунгало';
+        houseType = 'Бунгало';
         break;
       case 'house':
-        index = 'Дом';
+        houseType = 'Дом';
         break;
-      case 'place': index = 'Дворец';
+      case 'place': houseType = 'Дворец';
     }
-    return index;
+    return houseType;
   };
 
   // Создает массив объявлений

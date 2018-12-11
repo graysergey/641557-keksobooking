@@ -23,9 +23,9 @@
   var renderFeatures = function (features) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < features.length; i++) {
-      var newElement = document.createElement('li');
-      newElement.className = 'popup__feature popup__feature--' + features[i];
-      fragment.appendChild(newElement);
+      var element = document.createElement('li');
+      element.className = 'popup__feature popup__feature--' + features[i];
+      fragment.appendChild(element);
     }
     return fragment;
   };

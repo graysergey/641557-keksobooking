@@ -4,11 +4,11 @@ var mapWidth = document.querySelector('.map').offsetWidth;
 var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
 var pinWidth = mapPinMain.offsetWidth;
 var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
-var PIN__HALF__WIDTH = pinWidth / 2;
-var PIN__HALF__HEIGHT = pinHeight / 2;
+var PIN_HALF_WIDTH = pinWidth / 2;
+var PIN_HALF_HEIGHT = pinHeight / 2;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
-var LOCATION_MIN_X = PIN__HALF__WIDTH;
+var LOCATION_MIN_X = PIN_HALF_WIDTH;
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
@@ -36,13 +36,13 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     var newCoordsY = mapPinMain.offsetTop - shift.y;
 
     var minCoords = {
-      x: Math.floor(LOCATION_MIN_X - PIN__HALF__WIDTH),
+      x: Math.floor(LOCATION_MIN_X - PIN_HALF_WIDTH),
       y: Math.floor(LOCATION_MIN_Y - pinHeight)
     };
 
     var maxCoords = {
       x: Math.floor(mapWidth - pinWidth),
-      y: Math.floor(LOCATION_MAX_Y - PIN__HALF__HEIGHT)
+      y: Math.floor(LOCATION_MAX_Y - PIN_HALF_HEIGHT)
     };
 
     if (newCoordsY < minCoords.y) {
