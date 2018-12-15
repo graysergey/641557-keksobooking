@@ -9,10 +9,14 @@
 
 
   // Активация интерфейса по нажанию, на главную метку карты.
-
+  // console.log('map', window.pin);
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    pins.appendChild(window.pin(window.adverts)); // Отрисовывает отметки на карте
+    // pins.appendChild(window.backend.load()); // Отрисовывает отметки на карте
+    window.backend.load(function (array) {
+      pins.appendChild(window.pin(array));
+      console.log(array);
+    });
     window.form.removeDisabled();
     onPinClick(); // Вызывает функцию (обработчик событий)
   };

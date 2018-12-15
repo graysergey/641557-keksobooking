@@ -32,23 +32,12 @@
 
     xhr.open('GET', URL.load);
     xhr.send();
-
-    console.log(xhr.response);
-  };
-  load();
-
-  var upload = function (data, onLoad, onError) {
-
-  };
-
-  var onError = function () {
-
   };
 
   window.backend = {
     load: load,
-    upload: upload,
-    onError: onError
+    // upload: upload,
+    // onError: onError
   };
 
 })();

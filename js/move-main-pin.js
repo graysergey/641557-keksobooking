@@ -20,7 +20,10 @@ mapPinMain.addEventListener('mousedown', function (evt) {
 
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
-    window.activateInterface();
+    var isMapActive = document.querySelector('.map--faded');
+    if (isMapActive) {
+      window.activateInterface();
+    }
 
     var shift = {
       x: startCoords.x - moveEvt.clientX,
