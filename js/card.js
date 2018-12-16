@@ -34,62 +34,71 @@
     var card = cardTemplate.cloneNode(true);
     var featuresList = card.querySelector('.popup__features');
     var closeButton = card.querySelector('.popup__close');
+    var titleElement = card.querySelector('.popup__title');
+    var adressElement = card.querySelector('.popup__text--address');
+    var priceElement = card.querySelector('.popup__text--price');
+    var typeElement = card.querySelector('.popup__type');
+    var capacityElement = card.querySelector('.popup__text--capacity');
+    var timeElement = card.querySelector('.popup__text--time');
+    var descriptionElement = card.querySelector('.popup__description');
+    var photosListElement = card.querySelector('.popup__photos');
+    var avatarElement = card.querySelector('.popup__avatar');
     window.map.onCloseClick(closeButton);
 
     if (advert.offer.title) {
-      card.querySelector('.popup__title').textContent = advert.offer.title;
+      titleElement.textContent = advert.offer.title;
     } else {
-      card.remove('.popup__title');
+      titleElement.remove();
     }
     if (advert.offer.address) {
-      card.querySelector('.popup__text--address').textContent = advert.offer.address;
+      adressElement.textContent = advert.offer.address;
     } else {
-      card.remove('.popup__text--address');
+      adressElement.remove();
     }
     if (advert.offer.price) {
-      card.querySelector('.popup__text--price').textContent = advert.offer.price + '\u20BD' + '/ночь';
+      priceElement.textContent = advert.offer.price + '\u20BD' + '/ночь';
     } else {
-      card.remove('.popup__text--price');
+      priceElement.remove();
     }
     if (advert.offer.type) {
-      card.querySelector('.popup__type').textContent = advert.offer.type;
+      typeElement.textContent = advert.offer.type;
     } else {
-      card.remove('.popup__type');
+      typeElement.remove();
     }
     if (advert.offer.rooms && advert.offer.guests) {
-      card.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для '
+      capacityElement.textContent = advert.offer.rooms + ' комнаты для '
       + advert.offer.guests + ' гостей';
     } else {
-      card.remove('.popup__text--capacity');
+      capacityElement.remove();
     }
     if (advert.offer.checkin && advert.offer.checkout) {
-      card.querySelector('.popup__text--time').textContent = 'Заезд после '
+      timeElement.textContent = 'Заезд после '
       + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     } else {
-      card.remove('.popup__text--time');
+      timeElement.remove();
     }
     if (advert.offer.description) {
-      card.querySelector('.popup__description').textContent = advert.offer.description;
+      descriptionElement.textContent = advert.offer.description;
     } else {
-      card.remove('.popup__description');
+      descriptionElement.remove();
     }
     if (advert.offer.photos) {
-      card.querySelector('.popup__photos').textContent = '';
-      card.querySelector('.popup__photos').appendChild(getElementPhoto(advert));
+      photosListElement.textContent = '';
+      photosListElement.appendChild(getElementPhoto(advert));
     } else {
-      card.remove('.popup__photos');
+      photosListElement.remove();
     }
     if (advert.author.avatar) {
-      card.querySelector('.popup__avatar').src = advert.author.avatar;
+      avatarElement.src = advert.author.avatar;
     } else {
-      card.remove('.popup__avatar');
+      avatarElement.remove();
     }
-
-    //  удаляет все li
-    featuresList.textContent = '';
-
-    // добавляет из массива li
-    featuresList.appendChild(renderFeatures(advert.offer.features));
+    if (advert.offer.features) {
+      featuresList.textContent = ''; //  удаляет все li
+      featuresList.appendChild(renderFeatures(advert.offer.features)); // добавляет из массива li
+    } else {
+      featuresList.remove();
+    }
 
     return card;
   };
