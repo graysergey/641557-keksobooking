@@ -8,6 +8,7 @@
   var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
   var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
   var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
+  var form = document.querySelector('.ad-form');
   var PIN_ARROW = 12;
   var PIN_HALF_HEIGHT = pinHeight / 2;
   var PIN_HALF_WIDTH = pinWidth / 2;
@@ -19,13 +20,22 @@
   };
 
   // Удаляет disabled у всех fieldset в форме ad-form
-  var form = document.querySelector('.ad-form');
   var removeDisabled = function () {
     var fieldset = form.querySelectorAll('fieldset');
     form.classList.remove('ad-form--disabled');
 
     for (var i = 0; i < fieldset.length; i++) {
       fieldset[i].removeAttribute('disabled');
+    }
+  };
+
+  // Добавляет disabled всем fieldset формы
+  var addDisabled = function () {
+    var fieldset = form.querySelectorAll('fieldset');
+    form.classList.add('ad-form--disabled');
+
+    for (var i = 0; i < fieldset.length; i++) {
+      fieldset[i].setAttribute('disabled', true);
     }
   };
 
@@ -86,18 +96,40 @@
 
   // Записывает в поле Адреса - координаты главной метки
   var getLocationMapPinMain = function () {
+    var inputAddress = form.querySelector('#address');
     var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + PIN_HALF_WIDTH);
     var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + PIN_HALF_HEIGHT);
-    var inputAddress = form.querySelector('#address');
 
     inputAddress.setAttribute('value', locationX + ', '
       + Math.round(((locationY - PIN_HALF_HEIGHT) + PIN_ARROW + pinHeight)));
   };
   getLocationMapPinMain();
+  // Сбрасывает координаты пина
+  var locationX = Math.round(parseInt(mapPinMain.style.left, 10));
+  var locationY = Math.round(parseInt(mapPinMain.style.top, 10));
+
+  var resetLocationMapPinMain = function () {
+    mapPinMain.style.left = locationX + 'px';
+    mapPinMain.style.top = locationY + 'px';
+    getLocationMapPinMain();
+  };
+
+  // Обработчик submit
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(form), function () {
+      form.reset();
+      window.map.dectivateInterface();
+    },
+    window.backend.onError
+    );
+  });
 
   window.form = {
     removeDisabled: removeDisabled,
-    getLocationMapPinMain: getLocationMapPinMain
+    getLocationMapPinMain: getLocationMapPinMain,
+    addDisabled: addDisabled,
+    resetLocationMapPinMain: resetLocationMapPinMain
   };
 
 })();

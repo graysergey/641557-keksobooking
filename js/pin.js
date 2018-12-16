@@ -29,6 +29,17 @@
     return fragment;
   };
 
-  window.pin = getPointerFragment;
+  // Удаляет отметки на карте
+  var removePins = function () {
+    var pinsList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    pinsList.forEach(function (item) {
+      item.remove();
+    });
+  };
+
+  window.pin = {
+    getPointerFragment: getPointerFragment,
+    removePins: removePins
+  };
 
 })();

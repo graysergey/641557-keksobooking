@@ -12,7 +12,7 @@
   var activateInterface = function () {
     map.classList.remove('map--faded');
     window.backend.load(function (array) { // вызываем колбек / берем данные от сервера
-      pins.appendChild(window.pin(array));
+      pins.appendChild(window.pin.getPointerFragment(array));
     });
     window.form.removeDisabled();
   };
@@ -65,10 +65,19 @@
     });
   };
 
+  // Сбрасываем интерфейс при отправке submit на сервер
+  var dectivateInterface = function () {
+    map.classList.add('map--faded');
+    window.form.addDisabled();
+    window.pin.removePins();
+    window.form.resetLocationMapPinMain();
+  };
+
   window.map = {
     onCloseClick: onCloseClick,
     onPinClick: onPinClick,
-    activateInterface: activateInterface
+    activateInterface: activateInterface,
+    dectivateInterface: dectivateInterface
   };
 
 })();
