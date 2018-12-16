@@ -9,7 +9,7 @@
     upload: 'https://js.dump.academy/keksobooking'
   };
 
-  var load = function (onLoad, onError) {
+  var xhrRender = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -29,7 +29,11 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполняться за  ' + xhr.timeout + 'мс');
     });
+    return xhr;
+  };
 
+  var load = function (onLoad, onError) {
+    var xhr = xhrRender(onLoad, onError);
     xhr.open('GET', URL.load);
     xhr.send();
   };
