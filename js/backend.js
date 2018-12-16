@@ -44,21 +44,9 @@
     xhr.send(data);
   };
 
-  function onError(errorMessage) {
-    var popup = document.createElement('div');
-    popup.style = 'display: flex; margin: 0 auto; min-height: 50px; justify-content: center; align-items: center; color: #fff; background-color: red; z-index: 100';
-    popup.style.position = 'absolute';
-    popup.style.left = 0;
-    popup.style.right = 0;
-    popup.style.fontSize = '35px';
-    popup.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', popup);
-  }
-
   window.backend = {
     load: load,
-    upload: upload,
-    onError: onError
+    upload: upload
   };
 
 })();
