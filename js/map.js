@@ -53,8 +53,20 @@
     });
   };
 
+  var onCloseClick = function (closeButton) {
+    closeButton.addEventListener('click', function () {
+      closeCardPopup();
+    });
+
+    document.addEventListener('keydown', function (keydownEvt) {
+      if (window.utils.isEscapeEvt(keydownEvt)) {
+        closeCardPopup();
+      }
+    });
+  };
+
   window.map = {
-    closeCardPopup: closeCardPopup,
+    onCloseClick: onCloseClick,
     onPinClick: onPinClick,
     activateInterface: activateInterface
   };

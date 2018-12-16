@@ -29,24 +29,12 @@
     return fragment;
   };
 
-  var onCloseClick = function (closeButton) {
-    closeButton.addEventListener('click', function () {
-      window.map.closeCardPopup();
-    });
-
-    document.addEventListener('keydown', function (keydownEvt) {
-      if (window.utils.isEscapeEvt(keydownEvt)) {
-        window.map.closeCardPopup();
-      }
-    });
-  };
-
   // Создает DOM элемент (объявления на карте)
   var getCardElement = function (advert) {
     var card = cardTemplate.cloneNode(true);
     var featuresList = card.querySelector('.popup__features');
     var closeButton = card.querySelector('.popup__close');
-    onCloseClick(closeButton);
+    window.map.onCloseClick(closeButton);
 
     card.querySelector('.popup__title').textContent = advert.offer.title;
     card.querySelector('.popup__text--address').textContent = advert.offer.address;
