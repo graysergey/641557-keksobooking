@@ -16,7 +16,6 @@
 
     document.addEventListener('keydown', onEsapeError);
   }
-  doErrorPopup();
 
   function removeErrorPopup() {
     var popup = document.querySelector('.error');

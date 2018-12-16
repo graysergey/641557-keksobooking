@@ -13,8 +13,8 @@
     map.classList.remove('map--faded');
     window.backend.load(function (array) { // вызываем колбек / берем данные от сервера
       pins.appendChild(window.pin.getPointerFragment(array));
-    }
-    // window.popup.error
+    },
+    window.popup.error
     );
     window.form.removeDisabled();
   };
