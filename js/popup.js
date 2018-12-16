@@ -4,19 +4,19 @@
 
   var main = document.querySelector('main');
 
-  function doErrorPopup(errorMessage) {
+  function doErrorPopup() {
     var fragment = document.createDocumentFragment();
     var errorTemplate = document.querySelector('#error')
       .content.querySelector('.error').cloneNode(true);
 
     errorTemplate.style = 'z-index: 100';
-    errorTemplate.textContent = errorMessage;
     fragment.appendChild(errorTemplate);
     main.appendChild(fragment);
     onErrorButton();
 
     document.addEventListener('keydown', onEsapeError);
   }
+  doErrorPopup();
 
   function removeErrorPopup() {
     var popup = document.querySelector('.error');

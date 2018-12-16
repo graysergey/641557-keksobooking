@@ -121,7 +121,7 @@
       form.reset();
       window.map.dectivateInterface();
     }
-    // window.popup.error()
+    // window.popup.error
     );
   });
 

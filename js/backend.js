@@ -17,17 +17,17 @@
       if (xhr.status === SUCCESS_CODE) {
         onLoad(xhr.response);
       } else {
-        error('Статус ответа сервера: ' + xhr.status + ' ' + xhr.statusText);
+        error();
       }
     });
 
     xhr.addEventListener('error', function () {
-      error('Произошла ошибка соединения');
+      error();
     });
 
-    xhr.timeout = 30000;
+    xhr.timeout = 10000;
     xhr.addEventListener('timeout', function () {
-      error('Запрос не успел выполняться за  ' + xhr.timeout + 'мс');
+      error();
     });
     return xhr;
   };
