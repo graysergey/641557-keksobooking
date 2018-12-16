@@ -3,6 +3,8 @@
 (function () {
 
   var SUCCESS_CODE = 200;
+  var form = document.querySelector('.ad-form');
+  // console.log(form);
 
   var URL = {
     load: 'https://js.dump.academy/keksobooking/data',
@@ -38,9 +40,35 @@
     xhr.send();
   };
 
+  var upload = function (data, onLoad, onError) {
+    var xhr = xhrRender(onLoad, onError);
+    xhr.open('POST', URL.load);
+    xhr.send(data);
+  };
+
+  var onError = function (errorMessage) {
+    var popup = document.createElement('div');
+    popup.style = 'display: flex; margin: 0 auto; min-height: 50px; justify-content: center; align-items: center; color: #fff; background-color: red; z-index: 100';
+    popup.style.position = 'absolute';
+    popup.style.left = 0;
+    popup.style.right = 0;
+    popup.style.fontSize = '35px';
+    popup.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', popup);
+  };
+
+  form.addEventListener('submit', function (evt) {
+    upload(new FormData(form), function () {
+
+    },
+    onError
+    );
+    evt.preventDefault();
+  });
+
   window.backend = {
     load: load,
-    // upload: upload,
+    upload: upload,
     // onError: onError
   };
 
