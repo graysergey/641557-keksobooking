@@ -9,16 +9,12 @@
 
 
   // Активация интерфейса по нажанию, на главную метку карты.
-  // console.log('map', window.pin);
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    // pins.appendChild(window.backend.load()); // Отрисовывает отметки на карте
-    window.backend.load(function (array) {
+    window.backend.load(function (array) { // вызываем колбек / берем данные от сервера
       pins.appendChild(window.pin(array));
-      console.log(array);
     });
     window.form.removeDisabled();
-    onPinClick(); // Вызывает функцию (обработчик событий)
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -28,9 +24,6 @@
       activateInterface();
     }
   });
-
-
-  // Отрисовка объявлений при нажатии на метки
 
   var closeCardPopup = function () {
     var card = document.querySelector('.map__card');
@@ -45,33 +38,25 @@
     if (card) {
       closeCardPopup();
     }
-    var newCard = window.card(window.adverts[pinId]);
-    map.insertBefore(newCard, filtersContainer);
-  };
-
-  // Вешает обработчики событий на метки
-  var onPinClick = function () {
-    var pinsList = pins.querySelectorAll('.map__pin:not(.map__pin--main)');
-    pinsList.forEach(function (item) {
-      item.addEventListener('click', function (evt) {
-        var button = evt.currentTarget;
-        var pinId = button.getAttribute('data-id');
-        doCardPopup(pinId);
-
-        var closeButton = document.querySelector('.popup__close');
-        closeButton.addEventListener('click', function () {
-          closeCardPopup();
-        });
-
-        document.addEventListener('keydown', function (keydownEvt) {
-          if (window.utils.isEscapeEvt(keydownEvt)) {
-            closeCardPopup();
-          }
-        });
-      });
+    window.backend.load(function (array) {
+      var newCard = window.card(array[pinId]);
+      map.insertBefore(newCard, filtersContainer);
     });
   };
 
-  window.activateInterface = activateInterface;
+  // Вешает обработчики событий на метки (для отрисовки карточки)
+  var onPinClick = function (item) {
+    item.addEventListener('click', function (evt) {
+      var button = evt.currentTarget;
+      var pinId = button.getAttribute('data-id');
+      doCardPopup(pinId);
+    });
+  };
+
+  window.map = {
+    closeCardPopup: closeCardPopup,
+    onPinClick: onPinClick,
+    activateInterface: activateInterface
+  };
 
 })();

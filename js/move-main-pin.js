@@ -22,7 +22,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
     moveEvt.preventDefault();
     var isMapActive = document.querySelector('.map--faded');
     if (isMapActive) {
-      window.activateInterface();
+      window.map.activateInterface();
     }
 
     var shift = {

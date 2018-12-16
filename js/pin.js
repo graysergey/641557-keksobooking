@@ -2,13 +2,14 @@
 
 (function () {
 
-  var pointerTemplate = document.querySelector('#pin');
+  var pointerTemplate = document.querySelector('#pin').content;
 
   // Создает DOM элемент (отметки на карте)
   var getPointerElement = function (card, index) {
-    var elementPointer = pointerTemplate.cloneNode(true).content;
+    var elementPointer = pointerTemplate.cloneNode(true);
     var pin = elementPointer.querySelector('.map__pin');
     var avatarUser = elementPointer.querySelector('img');
+    window.map.onPinClick(pin);
 
     pin.style.left = card.location.x + 'px';
     pin.style.top = card.location.y + 'px';
