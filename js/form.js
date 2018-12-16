@@ -120,8 +120,8 @@
     window.backend.upload(new FormData(form), function () {
       form.reset();
       window.map.dectivateInterface();
-    },
-    window.popup.error()
+    }
+    // window.popup.error()
     );
   });
 
