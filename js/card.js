@@ -33,7 +33,6 @@
   var getCardElement = function (advert) {
     var card = cardTemplate.cloneNode(true);
     var featuresList = card.querySelector('.popup__features');
-    var closeButton = card.querySelector('.popup__close');
     var titleElement = card.querySelector('.popup__title');
     var adressElement = card.querySelector('.popup__text--address');
     var priceElement = card.querySelector('.popup__text--price');
@@ -43,6 +42,8 @@
     var descriptionElement = card.querySelector('.popup__description');
     var photosListElement = card.querySelector('.popup__photos');
     var avatarElement = card.querySelector('.popup__avatar');
+
+    var closeButton = card.querySelector('.popup__close');
     window.map.onCloseClick(closeButton);
 
     if (advert.offer.title) {
