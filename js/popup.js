@@ -41,7 +41,7 @@
   }
 
   window.popup = {
-    error: doErrorPopup
+    onError: doErrorPopup
     // success: doSucsessPopup
   };
 
