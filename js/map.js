@@ -70,6 +70,7 @@
   // Сбрасываем интерфейс при отправке submit на сервер
   var dectivateInterface = function () {
     map.classList.add('map--faded');
+    closeCardPopup();
     window.form.addDisabled();
     window.pin.removePins();
     window.form.resetLocationMapPinMain();

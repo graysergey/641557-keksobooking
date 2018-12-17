@@ -5,7 +5,14 @@
   var main = document.querySelector('main');
 
   // Создает попап ошибки и вешает на него события
-  function doErrorPopup(errorMessage) {
+
+  var onEsapeError = function (evt) {
+    if (window.utils.isEscapeEvt(evt)) {
+      removeErrorPopup();
+    }
+  };
+
+  var getErrorPopup = function (errorMessage) {
     var fragment = document.createDocumentFragment();
     var errorTemplate = document.querySelector('#error')
       .content.querySelector('.error').cloneNode(true);
@@ -21,37 +28,34 @@
     onErrorButton();
 
     document.addEventListener('keydown', onEsapeError);
-  }
+  };
 
-  function removeErrorPopup() {
+  var removeErrorPopup = function () {
     var popup = document.querySelector('.error');
-    popup.remove();
     document.removeEventListener('keydown', onEsapeError);
-  }
+    window.map.dectivateInterface();
+    popup.remove();
+  };
 
-  function onErrorButton() {
+  var onErrorButton = function () {
     var button = document.querySelector('.error').querySelector('.error__button');
-    button.addEventListener('click', function () {
+    button.addEventListener('click', function (evtClick) {
+      evtClick.preventDefault();
       removeErrorPopup();
-      window.map.dectivateInterface();
     });
 
-    button.addEventListener('keydown', function () {
-      removeErrorPopup();
-      window.map.dectivateInterface();
+    button.addEventListener('keydown', function (evtKeydown) {
+      evtKeydown.preventDefault();
+      if (window.utils.isEnterEvent(evtKeydown)) {
+        removeErrorPopup();
+      }
     });
-  }
+  };
 
-  function onEsapeError(evt) {
-    if (window.utils.isEscapeEvt(evt)) {
-      removeErrorPopup();
-      window.map.dectivateInterface();
-    }
-  }
 
   // Создает попап успеха, и вешает на него события
 
-  function doSuccessPopup() {
+  var getSuccessPopup = function () {
     var fragment = document.createDocumentFragment();
     var successTemplate = document.querySelector('#success')
       .content.querySelector('.success').cloneNode(true);
@@ -61,30 +65,21 @@
     fragment.appendChild(successTemplate);
     main.appendChild(fragment);
 
-    document.addEventListener('keydown', onPopupButton);
-    document.addEventListener('mousedown', onPopupMouse);
-  }
+    document.addEventListener('keydown', removeSuccessPopup);
+    document.addEventListener('mousedown', removeSuccessPopup);
+  };
 
-  function removeSuccessPopup() {
+  var removeSuccessPopup = function () {
     var popup = document.querySelector('.success');
-    document.removeEventListener('keydown', onPopupButton);
-    document.removeEventListener('mousedown', onPopupMouse);
+    document.removeEventListener('keydown', removeSuccessPopup);
+    document.removeEventListener('mousedown', removeSuccessPopup);
+    window.map.dectivateInterface();
     popup.remove();
-  }
-
-  function onPopupMouse() {
-    removeSuccessPopup();
-    window.map.dectivateInterface();
-  }
-
-  function onPopupButton() {
-    removeSuccessPopup();
-    window.map.dectivateInterface();
-  }
+  };
 
   window.popup = {
-    onError: doErrorPopup,
-    onSuccess: doSuccessPopup
+    onError: getErrorPopup,
+    onSuccess: getSuccessPopup
   };
 
 })();
