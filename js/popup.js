@@ -4,12 +4,14 @@
 
   var main = document.querySelector('main');
 
-  function doErrorPopup() {
+  function doErrorPopup(errorMessage) {
     var fragment = document.createDocumentFragment();
     var errorTemplate = document.querySelector('#error')
       .content.querySelector('.error').cloneNode(true);
+    var errorParagraph = errorTemplate.querySelector('.error__message');
 
     errorTemplate.style = 'z-index: 100';
+    errorParagraph.textContent = errorMessage;
     fragment.appendChild(errorTemplate);
     main.appendChild(fragment);
     onErrorButton();
