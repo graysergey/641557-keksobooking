@@ -118,6 +118,7 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(form), function () {
+      window.popup.onSuccess();
       form.reset();
       window.map.dectivateInterface();
     },
