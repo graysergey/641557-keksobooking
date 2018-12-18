@@ -46,55 +46,55 @@
     var closeButton = card.querySelector('.popup__close');
     window.map.onCloseClick(closeButton);
 
-    if (advert.offer.title) {
+    if (advert.offer.title.length !== 0) {
       titleElement.textContent = advert.offer.title;
     } else {
       titleElement.remove();
     }
-    if (advert.offer.address) {
+    if (advert.offer.address.length !== 0) {
       adressElement.textContent = advert.offer.address;
     } else {
       adressElement.remove();
     }
-    if (advert.offer.price) {
+    if (advert.offer.price.length !== 0) {
       priceElement.textContent = advert.offer.price + '\u20BD' + '/ночь';
     } else {
       priceElement.remove();
     }
-    if (advert.offer.type) {
+    if (advert.offer.type.length !== 0) {
       typeElement.textContent = advert.offer.type;
     } else {
       typeElement.remove();
     }
-    if (advert.offer.rooms && advert.offer.guests) {
+    if (advert.offer.rooms.length && advert.offer.guests.length !== 0) {
       capacityElement.textContent = advert.offer.rooms + ' комнаты для '
       + advert.offer.guests + ' гостей';
     } else {
       capacityElement.remove();
     }
-    if (advert.offer.checkin && advert.offer.checkout) {
+    if (advert.offer.checkin.length && advert.offer.checkout.length !== 0) {
       timeElement.textContent = 'Заезд после '
       + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
     } else {
       timeElement.remove();
     }
-    if (advert.offer.description) {
+    if (advert.offer.description.length !== 0) {
       descriptionElement.textContent = advert.offer.description;
     } else {
       descriptionElement.remove();
     }
-    if (advert.offer.photos) {
+    if (advert.offer.photos.length !== 0) {
       photosListElement.textContent = '';
       photosListElement.appendChild(getElementPhoto(advert));
     } else {
       photosListElement.remove();
     }
-    if (advert.author.avatar) {
+    if (advert.author.avatar.length !== 0) {
       avatarElement.src = advert.author.avatar;
     } else {
       avatarElement.remove();
     }
-    if (advert.offer.features) {
+    if (advert.offer.features.length !== 0) {
       featuresList.textContent = ''; //  удаляет все li
       featuresList.appendChild(renderFeatures(advert.offer.features)); // добавляет из массива li
     } else {
