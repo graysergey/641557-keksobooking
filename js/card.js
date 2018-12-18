@@ -8,11 +8,10 @@
   // Создает картинку из шаблона, и задает ей одрес из массива
   var getElementPhoto = function (advert) {
     var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < advert.offer.photos.length; i++) {
+    for (var i = 0; i < advert.length; i++) {
       var createImg = cardTemplate.querySelector('.popup__photo').cloneNode(true);
 
-      createImg.src = advert.offer.photos[i];
+      createImg.src = advert[i];
       fragment.appendChild(createImg);
     }
     return fragment;
@@ -30,7 +29,7 @@
   };
 
 
-  // создание элементов карточки
+  // проверка наличия элементов карточки
   var renderTitle = function (title, card) {
     var titleElement = card.querySelector('.popup__title');
     if (title.length !== 0) {
