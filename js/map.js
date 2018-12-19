@@ -9,12 +9,14 @@
 
 
   // Активация интерфейса по нажанию, на главную метку карты.
-
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    pins.appendChild(window.pin(window.adverts)); // Отрисовывает отметки на карте
+    window.backend.load(function (array) { // вызываем колбек / берем данные от сервера
+      pins.appendChild(window.pin.getPointerFragment(array));
+    },
+    window.popup.onError
+    );
     window.form.removeDisabled();
-    onPinClick(); // Вызывает функцию (обработчик событий)
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -24,9 +26,6 @@
       activateInterface();
     }
   });
-
-
-  // Отрисовка объявлений при нажатии на метки
 
   var closeCardPopup = function () {
     var card = document.querySelector('.map__card');
@@ -41,33 +40,47 @@
     if (card) {
       closeCardPopup();
     }
-    var newCard = window.card(window.adverts[pinId]);
-    map.insertBefore(newCard, filtersContainer);
-  };
-
-  // Вешает обработчики событий на метки
-  var onPinClick = function () {
-    var pinsList = pins.querySelectorAll('.map__pin:not(.map__pin--main)');
-    pinsList.forEach(function (item) {
-      item.addEventListener('click', function (evt) {
-        var button = evt.currentTarget;
-        var pinId = button.getAttribute('data-id');
-        doCardPopup(pinId);
-
-        var closeButton = document.querySelector('.popup__close');
-        closeButton.addEventListener('click', function () {
-          closeCardPopup();
-        });
-
-        document.addEventListener('keydown', function (keydownEvt) {
-          if (window.utils.isEscapeEvt(keydownEvt)) {
-            closeCardPopup();
-          }
-        });
-      });
+    window.backend.load(function (array) {
+      var newCard = window.card(array[pinId]);
+      map.insertBefore(newCard, filtersContainer);
     });
   };
 
-  window.activateInterface = activateInterface;
+  // Вешает обработчики событий на метки (для отрисовки карточки)
+  var onPinClick = function (item) {
+    item.addEventListener('click', function (evt) {
+      var button = evt.currentTarget;
+      var pinId = button.getAttribute('data-id');
+      doCardPopup(pinId);
+    });
+  };
+
+  var onCloseClick = function (closeButton) {
+    closeButton.addEventListener('click', function () {
+      closeCardPopup();
+    });
+
+    document.addEventListener('keydown', function (keydownEvt) {
+      if (window.utils.isEscapeEvt(keydownEvt)) {
+        closeCardPopup();
+      }
+    });
+  };
+
+  // Сбрасываем интерфейс при отправке submit на сервер
+  var dectivateInterface = function () {
+    map.classList.add('map--faded');
+    closeCardPopup();
+    window.form.addDisabled();
+    window.pin.removePins();
+    window.form.resetLocationMapPinMain();
+  };
+
+  window.map = {
+    onCloseClick: onCloseClick,
+    onPinClick: onPinClick,
+    activateInterface: activateInterface,
+    dectivateInterface: dectivateInterface
+  };
 
 })();

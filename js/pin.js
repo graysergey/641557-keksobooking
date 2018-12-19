@@ -2,20 +2,20 @@
 
 (function () {
 
-  // Далее создание меток
-  var pointerTemplate = document.querySelector('#pin');
+  var pointerTemplate = document.querySelector('#pin').content;
 
-  // Создает D OM элемент (отметки на карте). Присваивает метке индекс
+  // Создает DOM элемент (отметки на карте)
   var getPointerElement = function (card, index) {
-    var elementPointer = pointerTemplate.cloneNode(true).content;
+    var elementPointer = pointerTemplate.cloneNode(true);
     var pin = elementPointer.querySelector('.map__pin');
-    var avatar = elementPointer.querySelector('img');
+    var avatarUser = elementPointer.querySelector('img');
+    window.map.onPinClick(pin);
 
     pin.style.left = card.location.x + 'px';
     pin.style.top = card.location.y + 'px';
     pin.setAttribute('data-id', index);
-    avatar.src = card.author.avatar;
-    avatar.alt = card.offer.title;
+    avatarUser.src = card.author.avatar;
+    avatarUser.alt = card.offer.title;
 
     return elementPointer;
   };
@@ -29,6 +29,19 @@
     return fragment;
   };
 
-  window.pin = getPointerFragment;
+  // Удаляет отметки на карте
+  var removePins = function () {
+    var pinsList = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    if (pinsList) {
+      pinsList.forEach(function (item) {
+        item.remove();
+      });
+    }
+  };
+
+  window.pin = {
+    getPointerFragment: getPointerFragment,
+    removePins: removePins
+  };
 
 })();
