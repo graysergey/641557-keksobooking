@@ -36,10 +36,7 @@
 
 
   var doCardPopup = function (pinId) {
-    var card = document.querySelector('.map__card');
-    if (card) {
-      closeCardPopup();
-    }
+    closeCardPopup();
     window.backend.load(function (array) {
       var newCard = window.card(array[pinId]);
       map.insertBefore(newCard, filtersContainer);
