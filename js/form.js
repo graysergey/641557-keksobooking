@@ -119,11 +119,24 @@
     evt.preventDefault();
     window.backend.upload(new FormData(form), function () {
       window.popup.onSuccess();
-      form.reset();
       window.map.dectivateInterface();
     },
     window.popup.onError
     );
+  });
+
+  // обработчик reset
+  var resetForm = form.querySelector('.ad-form__reset');
+  resetForm.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.map.dectivateInterface();
+  });
+
+  resetForm.addEventListener('keydown', function (evt) {
+    evt.preventDefault();
+    if (window.utils.isEnterEvent(evt)) {
+      window.map.dectivateInterface();
+    }
   });
 
   window.form = {

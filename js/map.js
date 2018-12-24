@@ -6,6 +6,7 @@
   var mapPinMain = pins.querySelector('.map__pin--main');
   var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
   var map = document.querySelector('.map');
+  var form = document.querySelector('.ad-form');
 
 
   // Активация интерфейса по нажанию, на главную метку карты.
@@ -17,6 +18,7 @@
     window.popup.onError
     );
     window.form.removeDisabled();
+    window.formFilter.filtersActivate();
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -71,6 +73,8 @@
     window.form.addDisabled();
     window.pin.removePins();
     window.form.resetLocationMapPinMain();
+    window.formFilter.filtersDeactivate();
+    form.reset();
   };
 
   window.map = {
