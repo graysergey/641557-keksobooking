@@ -12,7 +12,6 @@
 
   // Активация интерфейса по нажанию, на главную метку карты.
   var activateInterface = function () {
-    console.log(cards);
     map.classList.remove('map--faded');
     pins.appendChild(window.pin.getPointerFragment(cards));
     window.form.removeDisabled();
@@ -34,30 +33,40 @@
     }
   };
 
-
   var doCardPopup = function (pinId) {
     closeCardPopup();
     var newCard = window.card(cards[pinId]);
     map.insertBefore(newCard, filtersContainer);
   };
 
+  var removeActivePin = function () {
+    var pinActive = document.querySelector('.map__pin--active');
+    if (pinActive) {
+      pinActive.classList.remove('map__pin--active');
+    }
+  };
+
   // Вешает обработчики событий на метки (для отрисовки карточки)
   var onPinClick = function (item) {
     item.addEventListener('click', function (evt) {
+      removeActivePin();
       var button = evt.currentTarget;
       var pinId = button.getAttribute('data-id');
       doCardPopup(pinId);
+      item.classList.add('map__pin--active');
     });
   };
 
   var onCloseClick = function (closeButton) {
     closeButton.addEventListener('click', function () {
       closeCardPopup();
+      removeActivePin();
     });
 
     document.addEventListener('keydown', function (keydownEvt) {
       if (window.utils.isEscapeEvt(keydownEvt)) {
         closeCardPopup();
+        removeActivePin();
       }
     });
   };
