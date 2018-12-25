@@ -255,9 +255,8 @@
   <script>
     // Add this script before other scripts in HTML file
     (function () {
-      window.__listeners__ = {
-        listenersCount: 0
-      };
+      window.__listeners__ = {};
+      window.__listenersCount__ = 0;
 
 
       Element.prototype.addEventListener = new Proxy(Element.prototype.addEventListener, {
@@ -275,7 +274,7 @@
             fn: fn,
             element: thisArg
           });
-          window.__listeners__.listenersCount++;
+          window.__listenersCount__++;
 
           return target.apply(thisArg, argumentsList);
         }
@@ -304,10 +303,24 @@
               ...window.__listeners__[type].slice(index + 1)
             ];
             console.log(`%cREMOVE: event ${type} from`, 'color: orange; border: 1px solid orange; padding: 10px;', thisArg, fn);
-            window.__listeners__.listenersCount--;
+            window.__listenersCount__--;
           });
         }
       });
+
+      //use this to get array of event listeners connected to nodes that not exists in document anymore
+      window.__getDisconnectedEventListeners__ = function() {
+        let result = [];
+        Object.keys(window.__listeners__).forEach(function (type) {
+          window.__listeners__[type].forEach(function (item) {
+            if (item.element.compareDocumentPosition(document.body) & Node.DOCUMENT_POSITION_DISCONNECTED) {
+              result.push(item);
+            }
+          });
+        });
+
+        return result;
+      };
     })();
   </script>
 
