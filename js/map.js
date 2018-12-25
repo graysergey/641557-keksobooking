@@ -87,7 +87,7 @@
     cards = data;
   };
 
-  window.backend.load(onSuccessData);
+  window.backend.load(onSuccessData, window.popup.onError);
 
   window.map = {
     onCloseClick: onCloseClick,
