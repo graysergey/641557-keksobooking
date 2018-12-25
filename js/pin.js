@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-
+  var AMOUNT_PINS = 5;
   var pointerTemplate = document.querySelector('#pin').content;
 
   // Создает DOM элемент (отметки на карте)
@@ -23,7 +23,8 @@
   // Создает DOM фрагмент (отметки на карте)
   var getPointerFragment = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
+    var takeNumber = array.length > AMOUNT_PINS ? AMOUNT_PINS : array.length;
+    for (var i = 0; i < takeNumber; i++) {
       fragment.appendChild(getPointerElement(array[i], i));
     }
     return fragment;
