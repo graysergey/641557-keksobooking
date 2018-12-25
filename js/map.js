@@ -7,16 +7,14 @@
   var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
   var map = document.querySelector('.map');
   var form = document.querySelector('.ad-form');
+  var cards = [];
 
 
   // Активация интерфейса по нажанию, на главную метку карты.
   var activateInterface = function () {
+    console.log(cards);
     map.classList.remove('map--faded');
-    window.backend.load(function (array) { // вызываем колбек / берем данные от сервера
-      pins.appendChild(window.pin.getPointerFragment(array));
-    },
-    window.popup.onError
-    );
+    pins.appendChild(window.pin.getPointerFragment(cards));
     window.form.removeDisabled();
     window.formFilter.filtersActivate();
   };
@@ -39,10 +37,8 @@
 
   var doCardPopup = function (pinId) {
     closeCardPopup();
-    window.backend.load(function (array) {
-      var newCard = window.card(array[pinId]);
-      map.insertBefore(newCard, filtersContainer);
-    });
+    var newCard = window.card(cards[pinId]);
+    map.insertBefore(newCard, filtersContainer);
   };
 
   // Вешает обработчики событий на метки (для отрисовки карточки)
@@ -76,6 +72,13 @@
     window.formFilter.filtersDeactivate();
     form.reset();
   };
+
+  // колбек данных от сервера
+  var onSuccessData = function (data) {
+    cards = data;
+  };
+
+  window.backend.load(onSuccessData);
 
   window.map = {
     onCloseClick: onCloseClick,
