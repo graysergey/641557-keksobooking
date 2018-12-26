@@ -24,6 +24,7 @@
   var getPointerFragment = function (array) {
     var fragment = document.createDocumentFragment();
     var takeNumber = array.length > AMOUNT_PINS ? AMOUNT_PINS : array.length;
+    removePins();
     for (var i = 0; i < takeNumber; i++) {
       fragment.appendChild(getPointerElement(array[i], i));
     }
