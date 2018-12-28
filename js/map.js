@@ -6,15 +6,20 @@
   var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
   var map = document.querySelector('.map');
   var form = document.querySelector('.ad-form');
-
+  var pins = document.querySelector('.map__pins');
+  var dataCopy = [];
 
   // Активация интерфейса по нажанию, на главную метку карты.
   var activateInterface = function () {
     map.classList.remove('map--faded');
-    window.similarAdverds.updatePins();
     window.form.removeDisabled();
     window.formFilter.filtersActivate();
-    console.log(window.cards);
+    pins.appendChild(window.pin.getPointerFragment(dataCopy));
+  };
+
+  var onSuccessData = function (data) {
+    dataCopy = data;
+    window.dataCopy = data;
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -34,7 +39,7 @@
 
   var doCardPopup = function (pinId) {
     closeCardPopup();
-    var newCard = window.card(cards[pinId]);
+    var newCard = window.card(dataCopy[pinId]);
     map.insertBefore(newCard, filtersContainer);
   };
 
@@ -80,6 +85,8 @@
     window.formFilter.filtersDeactivate();
     form.reset();
   };
+
+  window.backend.load(onSuccessData, window.popup.onError);
 
   window.map = {
     onCloseClick: onCloseClick,
