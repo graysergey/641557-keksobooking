@@ -14,12 +14,13 @@
     map.classList.remove('map--faded');
     window.form.removeDisabled();
     window.formFilter.filtersActivate();
-    pins.appendChild(window.pin.getPointerFragment(dataCopy));
+    window.backend.load(onSuccessData, window.popup.onError);
   };
 
   var onSuccessData = function (data) {
     dataCopy = data;
     window.dataCopy = data;
+    pins.appendChild(window.pin.getPointerFragment(data));
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -75,7 +76,7 @@
     });
   };
 
-  // Сбрасываем интерфейс при отправке submit на сервер
+  // функция сброса интерфейса, используется при submit
   var dectivateInterface = function () {
     map.classList.add('map--faded');
     closeCardPopup();
@@ -85,8 +86,6 @@
     window.formFilter.filtersDeactivate();
     form.reset();
   };
-
-  window.backend.load(onSuccessData, window.popup.onError);
 
   window.map = {
     onCloseClick: onCloseClick,
