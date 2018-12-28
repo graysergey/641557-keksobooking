@@ -13,14 +13,21 @@
   var activateInterface = function () {
     map.classList.remove('map--faded');
     window.form.removeDisabled();
-    window.formFilter.filtersActivate();
+    window.formAds.filtersActivate();
     window.backend.load(onSuccessData, window.popup.onError);
+  };
+
+  var updatePins = function (data) {
+    pins.appendChild(window.pin.getPointerFragment(window.filter.getFiltredData(data)));
   };
 
   var onSuccessData = function (data) {
     dataCopy = data;
     window.dataCopy = data;
-    pins.appendChild(window.pin.getPointerFragment(data));
+    window.filter.onChangeFilter(function () {
+      updatePins(dataCopy);
+    });
+    updatePins(dataCopy);
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -83,7 +90,7 @@
     window.form.addDisabled();
     window.pin.removePins();
     window.form.resetLocationMapPinMain();
-    window.formFilter.filtersDeactivate();
+    window.formAds.filtersDeactivate();
     form.reset();
   };
 

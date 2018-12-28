@@ -21,7 +21,7 @@
     fieldsetFormFilter.removeAttribute('disabled');
   };
 
-  window.formFilter = {
+  window.formAds = {
     filtersDeactivate: filtersDeactivate,
     filtersActivate: filtersActivate
   };
