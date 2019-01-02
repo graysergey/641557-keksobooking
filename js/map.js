@@ -23,11 +23,11 @@
 
   var onSuccessData = function (data) {
     dataCopy = data;
-    window.dataCopy = data;
+    updatePins(dataCopy);
     window.filter.onChangeFilter(function () {
+      closeCardPopup();
       updatePins(dataCopy);
     });
-    updatePins(dataCopy);
   };
 
   mapPinMain.addEventListener('keydown', function (evt) {
@@ -47,7 +47,7 @@
 
   var doCardPopup = function (pinId) {
     closeCardPopup();
-    var newCard = window.card(dataCopy[pinId]);
+    var newCard = window.card(window.filter.getFiltredData(dataCopy)[pinId]);
     map.insertBefore(newCard, filtersContainer);
   };
 
