@@ -15,6 +15,7 @@
   var onChangeFilter = function (func) {
     typeSelect.addEventListener('change', func);
     priceSelect.addEventListener('change', func);
+    roomsSelect.addEventListener('change', func);
   };
 
   var getFiltredType = function (advert) {
@@ -32,9 +33,13 @@
     return true;
   };
 
+  var getFiltredRooms = function (advert) {
+    return +roomsSelect.value === advert.offer.rooms || roomsSelect.value === 'any';
+  };
+
   var getFiltredData = function (arrayData) {
     return arrayData.filter(function (item) {
-      return getFiltredType(item) && getFiltredPrice(item);
+      return getFiltredType(item) && getFiltredPrice(item) && getFiltredRooms(item);
     });
   };
 
