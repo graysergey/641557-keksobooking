@@ -27,6 +27,7 @@
     window.filter.onChangeFilter(function () {
       closeCardPopup();
       updatePins(dataCopy);
+      console.log(window.filter.getFiltredData(data));
     });
   };
 
