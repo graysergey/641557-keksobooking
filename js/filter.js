@@ -16,6 +16,7 @@
     typeSelect.addEventListener('change', func);
     priceSelect.addEventListener('change', func);
     roomsSelect.addEventListener('change', func);
+    guestsSelect.addEventListener('change', func);
   };
 
   var getFiltredType = function (advert) {
@@ -37,9 +38,13 @@
     return +roomsSelect.value === advert.offer.rooms || roomsSelect.value === 'any';
   };
 
+  var getFiltredGuests = function (advert) {
+    return +guestsSelect.value === advert.offer.guests || guestsSelect.value === 'any';
+  };
+
   var getFiltredData = function (arrayData) {
     return arrayData.filter(function (item) {
-      return getFiltredType(item) && getFiltredPrice(item) && getFiltredRooms(item);
+      return getFiltredType(item) && getFiltredPrice(item) && getFiltredRooms(item) && getFiltredGuests(item);
     });
   };
 
