@@ -25,9 +25,10 @@
     dataCopy = data;
     updatePins(dataCopy);
     window.filter.onChangeFilter(function () {
-      closeCardPopup();
-      updatePins(dataCopy);
-      console.log(window.filter.getFiltredData(data));
+      window.debounce(function () {
+        closeCardPopup();
+        updatePins(dataCopy);
+      });
     });
   };
 

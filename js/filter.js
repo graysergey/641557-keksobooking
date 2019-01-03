@@ -7,6 +7,7 @@
   var priceSelect = filtersForm.querySelector('#housing-price');
   var roomsSelect = filtersForm.querySelector('#housing-rooms');
   var guestsSelect = filtersForm.querySelector('#housing-guests');
+  // var housingFeatures = filtersForm.querySelector('#housing-features');
   var priceRooms = {
     min: 10000,
     max: 50000
@@ -41,6 +42,10 @@
   var getFiltredGuests = function (advert) {
     return +guestsSelect.value === advert.offer.guests || guestsSelect.value === 'any';
   };
+
+  // var getFiltredFeatures = function (advert) {
+  //   var checkedFeatures = housingFeatures.querySelectorAll('input:checked');
+  // };
 
   var getFiltredData = function (arrayData) {
     return arrayData.filter(function (item) {
