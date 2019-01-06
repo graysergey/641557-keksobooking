@@ -14,11 +14,7 @@
   };
 
   var onChangeFilter = function (func) {
-    typeSelect.addEventListener('change', func);
-    priceSelect.addEventListener('change', func);
-    roomsSelect.addEventListener('change', func);
-    guestsSelect.addEventListener('change', func);
-    housingFeatures.addEventListener('change', func);
+    filtersForm.addEventListener('change', func);
   };
 
   var getFiltredType = function (advert) {
@@ -46,12 +42,12 @@
 
   var getFiltredFeatures = function (advert) {
     var checkedFeatures = housingFeatures.querySelectorAll('input:checked');
-    var feture = true;
+    var feature = true;
     Array.from(checkedFeatures).every(function (checkbox) {
-      feture = advert.offer.features.indexOf(checkbox.value) !== -1;
-      return feture;
+      feature = advert.offer.features.indexOf(checkbox.value) !== -1;
+      return feature;
     });
-    return feture;
+    return feature;
   };
 
   var getFiltredData = function (arrayData) {
