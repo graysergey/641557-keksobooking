@@ -22,14 +22,21 @@
   };
 
   var getFiltredPrice = function (advert) {
-    if (priceSelect.value === 'low') {
-      return advert.offer.price < priceRooms.min;
-    } else if (priceSelect.value === 'middle') {
-      return advert.offer.price >= priceRooms.min && advert.offer.price <= priceRooms.max;
-    } else if (priceSelect.value === 'high') {
-      return advert.offer.price >= priceRooms.max;
+    var price;
+    switch (priceSelect.value) {
+      case 'any':
+        price = true;
+        break;
+      case 'low':
+        price = advert.offer.price < priceRooms.min;
+        break;
+      case 'middle':
+        price = advert.offer.price >= priceRooms.min && advert.offer.price <= priceRooms.max;
+        break;
+      case 'high':
+        price = advert.offer.price >= priceRooms.max;
     }
-    return true;
+    return price;
   };
 
   var getFiltredRooms = function (advert) {
