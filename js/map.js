@@ -42,9 +42,7 @@
 
   var closeCardPopup = function () {
     var card = document.querySelector('.map__card');
-    if (card) {
-      card.remove();
-    }
+    return card && card.remove();
   };
 
   var renderCardPopup = function (pinId) {
