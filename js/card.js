@@ -68,8 +68,7 @@
   var renderCapacity = function (rooms, guests, card) {
     var capacityElement = card.querySelector('.popup__text--capacity');
     if (rooms.length && guests.length !== 0) {
-      capacityElement.textContent = rooms + ' комнаты для '
-      + guests + ' гостей';
+      capacityElement.textContent = rooms + ' комнаты для ' + guests + ' гостей';
     } else {
       capacityElement.remove();
     }
@@ -78,8 +77,7 @@
   var renderCheckin = function (checkin, checkout, card) {
     var timeElement = card.querySelector('.popup__text--time');
     if (checkin.length && checkout.length !== 0) {
-      timeElement.textContent = 'Заезд после '
-      + checkin + ', выезд до ' + checkout;
+      timeElement.textContent = 'Заезд после ' + checkin + ', выезд до ' + checkout;
     } else {
       timeElement.remove();
     }
