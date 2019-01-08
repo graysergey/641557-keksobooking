@@ -19,11 +19,11 @@
   // Создает <li> - елемент списка, из массива features (картинки удобств)
   var getFeatures = function (features) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < features.length; i++) {
+    features.forEach(function (feature) {
       var element = document.createElement('li');
-      element.className = 'popup__feature popup__feature--' + features[i];
+      element.className = 'popup__feature popup__feature--' + feature;
       fragment.appendChild(element);
-    }
+    });
     return fragment;
   };
 
