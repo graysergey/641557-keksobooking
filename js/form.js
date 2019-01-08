@@ -24,9 +24,9 @@
     var fieldset = form.querySelectorAll('fieldset');
     form.classList.remove('ad-form--disabled');
 
-    for (var i = 0; i < fieldset.length; i++) {
-      fieldset[i].removeAttribute('disabled');
-    }
+    fieldset.forEach(function (item) {
+      item.removeAttribute('disabled');
+    });
   };
 
   // Добавляет disabled всем fieldset формы
@@ -34,9 +34,9 @@
     var fieldset = form.querySelectorAll('fieldset');
     form.classList.add('ad-form--disabled');
 
-    for (var i = 0; i < fieldset.length; i++) {
-      fieldset[i].setAttribute('disabled', true);
-    }
+    fieldset.forEach(function (item) {
+      item.setAttribute('disabled', true);
+    });
   };
 
   var onCapacityPlacesChange = function () {
