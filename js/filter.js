@@ -40,11 +40,11 @@
   };
 
   var getFiltredRooms = function (advert) {
-    return +roomsSelect.value === advert.offer.rooms || roomsSelect.value === 'any';
+    return Number(roomsSelect.value) === advert.offer.rooms || roomsSelect.value === 'any';
   };
 
   var getFiltredGuests = function (advert) {
-    return +guestsSelect.value === advert.offer.guests || guestsSelect.value === 'any';
+    return Number(guestsSelect.value) === advert.offer.guests || guestsSelect.value === 'any';
   };
 
   var getFiltredFeatures = function (advert) {
