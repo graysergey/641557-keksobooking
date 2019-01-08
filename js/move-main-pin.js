@@ -1,16 +1,16 @@
 'use strict';
 
-var mapWidth = document.querySelector('.map').offsetWidth;
-var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
-var pinWidth = mapPinMain.offsetWidth;
-var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
-var PIN_HALF_WIDTH = pinWidth / 2;
-var PIN_HALF_HEIGHT = pinHeight / 2;
+var MAP_PIN_MAIN = document.querySelector('.map__pins').querySelector('.map__pin--main');
+var PIN_WIDTH = MAP_PIN_MAIN.offsetWidth;
+var PIN_HEIGHT = document.querySelector('.map__pin--main').offsetHeight;
+var PIN_HALF_WIDTH = PIN_WIDTH / 2;
+var PIN_HALF_HEIGHT = PIN_HEIGHT / 2;
 var LOCATION_MIN_Y = 130;
 var LOCATION_MAX_Y = 630;
 var LOCATION_MIN_X = PIN_HALF_WIDTH;
+var mapWidth = document.querySelector('.map').offsetWidth;
 
-mapPinMain.addEventListener('mousedown', function (evt) {
+MAP_PIN_MAIN.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
   var startCoords = {
@@ -36,16 +36,16 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       y: moveEvt.clientY
     };
 
-    var newCoordsX = mapPinMain.offsetLeft - shift.x;
-    var newCoordsY = mapPinMain.offsetTop - shift.y;
+    var newCoordsX = MAP_PIN_MAIN.offsetLeft - shift.x;
+    var newCoordsY = MAP_PIN_MAIN.offsetTop - shift.y;
 
     var minCoords = {
       x: Math.floor(LOCATION_MIN_X - PIN_HALF_WIDTH),
-      y: Math.floor(LOCATION_MIN_Y - pinHeight)
+      y: Math.floor(LOCATION_MIN_Y - PIN_HEIGHT)
     };
 
     var maxCoords = {
-      x: Math.floor(mapWidth - pinWidth),
+      x: Math.floor(mapWidth - PIN_WIDTH),
       y: Math.floor(LOCATION_MAX_Y - PIN_HALF_HEIGHT)
     };
 
@@ -65,8 +65,8 @@ mapPinMain.addEventListener('mousedown', function (evt) {
       newCoordsX = maxCoords.x;
     }
 
-    mapPinMain.style.left = newCoordsX + 'px';
-    mapPinMain.style.top = newCoordsY + 'px';
+    MAP_PIN_MAIN.style.left = newCoordsX + 'px';
+    MAP_PIN_MAIN.style.top = newCoordsY + 'px';
   };
 
   var onMouseUp = function (upEvt) {
