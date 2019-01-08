@@ -47,7 +47,7 @@
     }
   };
 
-  var doCardPopup = function (pinId) {
+  var renderCardPopup = function (pinId) {
     closeCardPopup();
     var newCard = window.card(window.filter.getFiltredData(dataCopy)[pinId]);
     map.insertBefore(newCard, filtersContainer);
@@ -66,7 +66,7 @@
       removeActivePin();
       var button = evt.currentTarget;
       var pinId = button.getAttribute('data-id');
-      doCardPopup(pinId);
+      renderCardPopup(pinId);
       item.classList.add('map__pin--active');
     });
   };
