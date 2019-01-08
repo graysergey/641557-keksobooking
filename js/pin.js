@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var AMOUNT_PINS = 5;
+
   var pointerTemplate = document.querySelector('#pin').content;
 
   // Создает DOM элемент (отметки на карте)

@@ -2,6 +2,7 @@
 
 (function () {
 
+  var COUNT_PINS = 5;
   var filtersForm = document.querySelector('.map__filters');
   var typeSelect = filtersForm.querySelector('#housing-type');
   var priceSelect = filtersForm.querySelector('#housing-price');
@@ -58,9 +59,13 @@
   };
 
   var getFiltredData = function (arrayData) {
-    return arrayData.filter(function (item) {
+    var filtredData = arrayData.filter(function (item) {
       return getFiltredType(item) && getFiltredPrice(item) && getFiltredRooms(item) && getFiltredGuests(item) && getFiltredFeatures(item);
     });
+    if (filtredData.length > COUNT_PINS) {
+      filtredData.length = COUNT_PINS;
+    }
+    return filtredData;
   };
 
   window.filter = {
