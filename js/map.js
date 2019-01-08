@@ -22,7 +22,7 @@
   };
 
   var onSuccessData = function (data) {
-    dataCopy = data;
+    dataCopy = data.slice();
     updatePins(dataCopy);
     window.filter.onChangeFilter(function () {
       window.debounce(function () {
