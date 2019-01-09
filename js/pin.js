@@ -23,9 +23,10 @@
   // Создает DOM фрагмент (отметки на карте)
   var getPointerFragment = function (array) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
-      fragment.appendChild(getPointerElement(array[i], i));
-    }
+    removePins();
+    array.forEach(function (item, i) {
+      fragment.appendChild(getPointerElement(item, i));
+    });
     return fragment;
   };
 

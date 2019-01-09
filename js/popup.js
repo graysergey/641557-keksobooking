@@ -25,7 +25,7 @@
 
     fragment.appendChild(errorTemplate);
     main.appendChild(fragment);
-    onErrorButton();
+    onErrorButtonClick();
 
     document.addEventListener('keydown', onEsapeError);
   };
@@ -37,7 +37,7 @@
     popup.remove();
   };
 
-  var onErrorButton = function () {
+  var onErrorButtonClick = function () {
     var button = document.querySelector('.error').querySelector('.error__button');
     button.addEventListener('click', function (evtClick) {
       evtClick.preventDefault();

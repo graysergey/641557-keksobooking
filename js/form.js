@@ -2,16 +2,16 @@
 
 (function () {
 
+  var PIN_ARROW = 12;
+  var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
+  var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
+  var pinHalfHeight = pinHeight / 2;
+  var pinHalfWidth = pinWidth / 2;
   var selectRoomNumber = document.querySelector('#room_number');
   var capasitySelectGroop = document.querySelector('#capacity');
   var capacitySelectItem = capasitySelectGroop.querySelectorAll('option');
-  var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
-  var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
   var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
-  var PIN_ARROW = 12;
-  var PIN_HALF_HEIGHT = pinHeight / 2;
-  var PIN_HALF_WIDTH = pinWidth / 2;
   var minPrice = {
     bungalo: 0,
     flat: 1000,
@@ -24,9 +24,9 @@
     var fieldset = form.querySelectorAll('fieldset');
     form.classList.remove('ad-form--disabled');
 
-    for (var i = 0; i < fieldset.length; i++) {
-      fieldset[i].removeAttribute('disabled');
-    }
+    fieldset.forEach(function (item) {
+      item.removeAttribute('disabled');
+    });
   };
 
   // Добавляет disabled всем fieldset формы
@@ -34,9 +34,9 @@
     var fieldset = form.querySelectorAll('fieldset');
     form.classList.add('ad-form--disabled');
 
-    for (var i = 0; i < fieldset.length; i++) {
-      fieldset[i].setAttribute('disabled', true);
-    }
+    fieldset.forEach(function (item) {
+      item.setAttribute('disabled', true);
+    });
   };
 
   var onCapacityPlacesChange = function () {
@@ -97,11 +97,10 @@
   // Записывает в поле Адреса - координаты главной метки
   var getLocationMapPinMain = function () {
     var inputAddress = form.querySelector('#address');
-    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + PIN_HALF_WIDTH);
-    var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + PIN_HALF_HEIGHT);
+    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + pinHalfWidth);
+    var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + pinHalfHeight);
 
-    inputAddress.setAttribute('value', locationX + ', '
-      + Math.round(((locationY - PIN_HALF_HEIGHT) + PIN_ARROW + pinHeight)));
+    inputAddress.setAttribute('value', locationX + ', ' + Math.round(((locationY - pinHalfHeight) + PIN_ARROW + pinHeight)));
   };
   getLocationMapPinMain();
   // Сбрасывает координаты пина
@@ -119,11 +118,24 @@
     evt.preventDefault();
     window.backend.upload(new FormData(form), function () {
       window.popup.onSuccess();
-      form.reset();
       window.map.dectivateInterface();
     },
     window.popup.onError
     );
+  });
+
+  // обработчик reset
+  var resetForm = form.querySelector('.ad-form__reset');
+  resetForm.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.map.dectivateInterface();
+  });
+
+  resetForm.addEventListener('keydown', function (evt) {
+    evt.preventDefault();
+    if (window.utils.isEnterEvent(evt)) {
+      window.map.dectivateInterface();
+    }
   });
 
   window.form = {

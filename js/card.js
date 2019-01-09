@@ -6,25 +6,24 @@
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   // Создает картинку из шаблона, и задает ей одрес из массива
-  var getElementPhoto = function (advert) {
+  var getElementPhoto = function (photos) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < advert.length; i++) {
+    photos.forEach(function (photo) {
       var createImg = cardTemplate.querySelector('.popup__photo').cloneNode(true);
-
-      createImg.src = advert[i];
+      createImg.src = photo;
       fragment.appendChild(createImg);
-    }
+    });
     return fragment;
   };
 
   // Создает <li> - елемент списка, из массива features (картинки удобств)
   var getFeatures = function (features) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < features.length; i++) {
+    features.forEach(function (feature) {
       var element = document.createElement('li');
-      element.className = 'popup__feature popup__feature--' + features[i];
+      element.className = 'popup__feature popup__feature--' + feature;
       fragment.appendChild(element);
-    }
+    });
     return fragment;
   };
 
@@ -69,8 +68,7 @@
   var renderCapacity = function (rooms, guests, card) {
     var capacityElement = card.querySelector('.popup__text--capacity');
     if (rooms.length && guests.length !== 0) {
-      capacityElement.textContent = rooms + ' комнаты для '
-      + guests + ' гостей';
+      capacityElement.textContent = rooms + ' комнаты для ' + guests + ' гостей';
     } else {
       capacityElement.remove();
     }
@@ -79,8 +77,7 @@
   var renderCheckin = function (checkin, checkout, card) {
     var timeElement = card.querySelector('.popup__text--time');
     if (checkin.length && checkout.length !== 0) {
-      timeElement.textContent = 'Заезд после '
-      + checkin + ', выезд до ' + checkout;
+      timeElement.textContent = 'Заезд после ' + checkin + ', выезд до ' + checkout;
     } else {
       timeElement.remove();
     }
