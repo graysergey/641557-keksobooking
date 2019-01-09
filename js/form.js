@@ -3,10 +3,10 @@
 (function () {
 
   var PIN_ARROW = 12;
-  var PIN_HEIGHT = document.querySelector('.map__pin--main').offsetHeight;
-  var PIN_WIDTH = document.querySelector('.map__pin--main').offsetWidth;
-  var PIN_HALF_HEIGHT = PIN_HEIGHT / 2;
-  var PIN_HALF_WIDTH = PIN_WIDTH / 2;
+  var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
+  var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
+  var pinHalfHeight = pinHeight / 2;
+  var pinHalfWidth = pinWidth / 2;
   var selectRoomNumber = document.querySelector('#room_number');
   var capasitySelectGroop = document.querySelector('#capacity');
   var capacitySelectItem = capasitySelectGroop.querySelectorAll('option');
@@ -97,11 +97,10 @@
   // Записывает в поле Адреса - координаты главной метки
   var getLocationMapPinMain = function () {
     var inputAddress = form.querySelector('#address');
-    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + PIN_HALF_WIDTH);
-    var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + PIN_HALF_HEIGHT);
+    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + pinHalfWidth);
+    var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + pinHalfHeight);
 
-    inputAddress.setAttribute('value', locationX + ', '
-      + Math.round(((locationY - PIN_HALF_HEIGHT) + PIN_ARROW + PIN_HEIGHT)));
+    inputAddress.setAttribute('value', locationX + ', ' + Math.round(((locationY - pinHalfHeight) + PIN_ARROW + pinHeight)));
   };
   getLocationMapPinMain();
   // Сбрасывает координаты пина
