@@ -53,9 +53,7 @@
 
   var removeActivePin = function () {
     var pinActive = document.querySelector('.map__pin--active');
-    if (pinActive) {
-      pinActive.classList.remove('map__pin--active');
-    }
+    return pinActive && pinActive.classList.remove('map__pin--active');
   };
 
   // Вешает обработчики событий на метки (для отрисовки карточки)
