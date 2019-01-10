@@ -9,7 +9,7 @@
     var elementPointer = pointerTemplate.cloneNode(true);
     var pin = elementPointer.querySelector('.map__pin');
     var avatarUser = elementPointer.querySelector('img');
-    window.map.onPinClick(pin);
+    window.map.setListenerToPin(pin);
 
     pin.style.left = card.location.x + 'px';
     pin.style.top = card.location.y + 'px';

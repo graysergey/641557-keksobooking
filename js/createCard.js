@@ -125,7 +125,7 @@
   var getCardElement = function (advert) {
     var card = cardTemplate.cloneNode(true);
     var closeButton = card.querySelector('.popup__close');
-    window.map.onCloseClick(closeButton);
+    window.map.setListenerToCard(closeButton);
 
     renderTitle(advert.offer.title, card);
     renderAddress(advert.offer.address, card);

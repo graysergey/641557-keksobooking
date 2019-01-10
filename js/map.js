@@ -80,7 +80,7 @@
   };
 
   // Вешает обработчики событий на метки (для отрисовки карточки)
-  var onPinClick = function (item) {
+  var setListenerToPin = function (item) {
     item.addEventListener('click', function (evt) {
       removeActivePin();
       var button = evt.currentTarget;
@@ -90,7 +90,7 @@
     });
   };
 
-  var onCloseClick = function (closeButton) {
+  var setListenerToCard = function (closeButton) {
     closeButton.addEventListener('click', function () {
       closeCardPopup();
       removeActivePin();
@@ -121,8 +121,8 @@
   window.setDraggablePin(map);
 
   window.map = {
-    onCloseClick: onCloseClick,
-    onPinClick: onPinClick,
+    setListenerToCard: setListenerToCard,
+    setListenerToPin: setListenerToPin,
     activateInterface: activateInterface,
     dectivateInterface: dectivateInterface,
     getCurentCoordsMainPin: getCurentCoordsMainPin
