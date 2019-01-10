@@ -27,7 +27,7 @@
         var isMapActive = document.querySelector('.map--faded');
         if (isMapActive) {
           window.map.activateInterface();
-          window.formAds.filtersActivate();
+          window.formAds.removeDisabled();
         }
 
         var shift = {

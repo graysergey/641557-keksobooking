@@ -12,7 +12,7 @@
   var activateInterface = function () {
     map.classList.remove('map--faded');
     window.form.removeDisabled();
-    window.formAds.filtersActivate();
+    window.formAds.removeDisabled();
     window.backend.load(onSuccessData, window.popup.onError);
     window.previewPhotos.onLoadAvatar();
   };

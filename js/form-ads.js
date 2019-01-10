@@ -14,7 +14,7 @@
   };
   filtersDeactivate();
 
-  var filtersActivate = function () {
+  var removeDisabled = function () {
     selectsFormFilters.forEach(function (item) {
       item.removeAttribute('disabled');
     });
@@ -23,7 +23,7 @@
 
   window.formAds = {
     filtersDeactivate: filtersDeactivate,
-    filtersActivate: filtersActivate
+    removeDisabled: removeDisabled
   };
 
 })();
