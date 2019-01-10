@@ -141,6 +141,6 @@
     return card;
   };
 
-  window.card = getCardElement;
+  window.createCard = getCardElement;
 
 })();

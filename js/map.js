@@ -48,7 +48,7 @@
 
   var renderCardPopup = function (pinId) {
     closeCardPopup();
-    var newCard = window.card(window.filter.getFiltredData(dataCopy)[pinId]);
+    var newCard = window.createCard(window.filter.getFiltredData(dataCopy)[pinId]);
     map.insertBefore(newCard, filtersContainer);
   };
 
