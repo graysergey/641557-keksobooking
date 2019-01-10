@@ -6,13 +6,13 @@
 
     var LOCATION_MIN_Y = 130;
     var LOCATION_MAX_Y = 630;
+    var mapWidth = mapElement.offsetWidth;
     var mapPinMain = mapElement.querySelector('.map__pin--main');
     var pinWidth = mapPinMain.offsetWidth;
     var pinHeight = mapPinMain.offsetHeight;
     var pinHalfWidth = pinWidth / 2;
     var pinHalfHeight = pinHeight / 2;
     var locationMinX = pinHalfWidth;
-    var mapWidth = document.querySelector('.map').offsetWidth;
 
     mapPinMain.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
