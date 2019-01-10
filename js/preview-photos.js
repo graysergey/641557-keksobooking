@@ -15,17 +15,7 @@
     var matches = FILE_TYPES.some(function (it) {
       return fileName.endsWith(it);
     });
-    onLoadSuccess(matches, file);
-  };
-
-  var onLoadSuccess = function (matches, file) {
-    if (matches) {
-      var reader = new FileReader();
-      reader.addEventListener('load', function () {
-        avatarPreview.src = reader.result;
-      });
-      reader.readAsDataURL(file);
-    }
+    onLoadSuccess(matches, file, avatarPreview);
   };
 
   var onInputPhotosPlaceChange = function () {
@@ -43,7 +33,7 @@
       var matches = FILE_TYPES.some(function (it) {
         return fileName.endsWith(it);
       });
-      onLoadSuccessPhotoPlace(matches, img, imageElement);
+      onLoadSuccess(matches, img, imageElement);
       currentPreviewElement.appendChild(imageElement);
       fragment.appendChild(currentPreviewElement);
     });
@@ -52,7 +42,7 @@
     photoPlacePreview.hidden = true;
   };
 
-  var onLoadSuccessPhotoPlace = function (matches, imgFile, imgElement) {
+  var onLoadSuccess = function (matches, imgFile, imgElement) {
     if (matches) {
       var reader = new FileReader();
       reader.addEventListener('load', function () {
