@@ -5,7 +5,6 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
   var map = document.querySelector('.map');
-  var form = document.querySelector('.ad-form');
   var pins = document.querySelector('.map__pins');
   var dataCopy = [];
 
@@ -88,9 +87,8 @@
     closeCardPopup();
     window.form.addDisabled();
     window.pin.removePins();
-    window.form.resetLocationMapPinMain();
+    window.form.resetToDefault();
     window.formAds.filtersDeactivate();
-    form.reset();
     window.previewPhotos.clean();
   };
 

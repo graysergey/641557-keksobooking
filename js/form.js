@@ -125,24 +125,29 @@
   });
 
   // обработчик reset
-  var resetForm = form.querySelector('.ad-form__reset');
-  resetForm.addEventListener('click', function (evt) {
+  var buttonResetForm = form.querySelector('.ad-form__reset');
+  buttonResetForm.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.map.dectivateInterface();
   });
 
-  resetForm.addEventListener('keydown', function (evt) {
+  buttonResetForm.addEventListener('keydown', function (evt) {
     evt.preventDefault();
     if (window.utils.isEnterEvent(evt)) {
       window.map.dectivateInterface();
     }
   });
 
+  var resetForm = function () {
+    resetLocationMapPinMain();
+    form.reset();
+  };
+
   window.form = {
     removeDisabled: removeDisabled,
     getLocationMapPinMain: getLocationMapPinMain,
     addDisabled: addDisabled,
-    resetLocationMapPinMain: resetLocationMapPinMain
+    resetToDefault: resetForm
   };
 
 })();
