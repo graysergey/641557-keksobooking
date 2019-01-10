@@ -15,6 +15,7 @@
     window.form.removeDisabled();
     window.formAds.filtersActivate();
     window.backend.load(onSuccessData, window.popup.onError);
+    window.previewPhotos.onLoadAvatar();
   };
 
   var updatePins = function (data) {
@@ -90,6 +91,7 @@
     window.form.resetLocationMapPinMain();
     window.formAds.filtersDeactivate();
     form.reset();
+    window.previewPhotos.clean();
   };
 
   window.map = {
