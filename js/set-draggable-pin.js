@@ -6,6 +6,7 @@
 
     var LOCATION_MIN_Y = 130;
     var LOCATION_MAX_Y = 630;
+
     var mapWidth = mapElement.offsetWidth;
     var mapPinMain = mapElement.querySelector('.map__pin--main');
     var pinWidth = mapPinMain.offsetWidth;
@@ -27,7 +28,6 @@
         var isMapActive = document.querySelector('.map--faded');
         if (isMapActive) {
           window.map.activateInterface();
-          window.formAds.removeDisabled();
         }
 
         var shift = {
@@ -75,7 +75,7 @@
 
       var onMouseUp = function (upEvt) {
         upEvt.preventDefault();
-        window.form.getLocationMapPinMain();
+        window.map.getCurentCoordsMainPin();
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
       };
