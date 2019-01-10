@@ -13,7 +13,6 @@
   };
 
   var getErrorPopup = function (errorMessage) {
-    var fragment = document.createDocumentFragment();
     var errorTemplate = document.querySelector('#error')
       .content.querySelector('.error').cloneNode(true);
     var errorParagraph = errorTemplate.querySelector('.error__message');
@@ -23,8 +22,7 @@
       errorParagraph.textContent = errorMessage;
     }
 
-    fragment.appendChild(errorTemplate);
-    main.appendChild(fragment);
+    main.appendChild(errorTemplate);
     onErrorButtonClick();
 
     document.addEventListener('keydown', onEsapeError);
