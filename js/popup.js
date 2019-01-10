@@ -6,7 +6,7 @@
 
   // Создает попап ошибки и вешает на него события
 
-  var onEsapeError = function (evt) {
+  var onEsapeErrorClick = function (evt) {
     if (window.utils.isEscapeEvt(evt)) {
       removeErrorPopup();
     }
@@ -23,30 +23,23 @@
     }
 
     main.appendChild(errorTemplate);
-    onErrorButtonClick();
+    onButtonErrorClick();
 
-    document.addEventListener('keydown', onEsapeError);
+    document.addEventListener('keydown', onEsapeErrorClick);
   };
 
   var removeErrorPopup = function () {
     var popup = document.querySelector('.error');
-    document.removeEventListener('keydown', onEsapeError);
+    document.removeEventListener('keydown', onEsapeErrorClick);
     window.map.dectivateInterface();
     popup.remove();
   };
 
-  var onErrorButtonClick = function () {
+  var onButtonErrorClick = function () {
     var button = document.querySelector('.error').querySelector('.error__button');
     button.addEventListener('click', function (evtClick) {
       evtClick.preventDefault();
       removeErrorPopup();
-    });
-
-    button.addEventListener('keydown', function (evtKeydown) {
-      evtKeydown.preventDefault();
-      if (window.utils.isEnterEvent(evtKeydown)) {
-        removeErrorPopup();
-      }
     });
   };
 
@@ -63,14 +56,14 @@
     fragment.appendChild(successTemplate);
     main.appendChild(fragment);
 
-    document.addEventListener('keydown', removeSuccessPopup);
-    document.addEventListener('mousedown', removeSuccessPopup);
+    document.addEventListener('keydown', onSuccessButtonRemove);
+    document.addEventListener('mousedown', onSuccessButtonRemove);
   };
 
-  var removeSuccessPopup = function () {
+  var onSuccessButtonRemove = function () {
     var popup = document.querySelector('.success');
-    document.removeEventListener('keydown', removeSuccessPopup);
-    document.removeEventListener('mousedown', removeSuccessPopup);
+    document.removeEventListener('keydown', onSuccessButtonRemove);
+    document.removeEventListener('mousedown', onSuccessButtonRemove);
     window.map.dectivateInterface();
     popup.remove();
   };

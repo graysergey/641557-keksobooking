@@ -94,6 +94,8 @@
     window.previewPhotos.clean();
   };
 
+  window.setDraggablePin(map);
+
   window.map = {
     onCloseClick: onCloseClick,
     onPinClick: onPinClick,
