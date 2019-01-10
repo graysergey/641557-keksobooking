@@ -141,13 +141,6 @@
     return card;
   };
 
-  // Создает DOM фрагмент (объявления на карте)
-  var getFragmentCard = function (arrIndex) {
-    var fragment = document.createDocumentFragment();
-    fragment.appendChild(getCardElement(arrIndex));
-    return fragment;
-  };
-
-  window.card = getFragmentCard;
+  window.card = getCardElement;
 
 })();
