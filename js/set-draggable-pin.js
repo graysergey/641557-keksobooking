@@ -2,12 +2,14 @@
 
 (function () {
 
-  window.setDraggablePin = function (mapElement, pinElement, pinWidth, pinHeight) {
+  window.setDraggablePin = function (mapElement, pinElement) {
 
     var LOCATION_MIN_Y = 130;
     var LOCATION_MAX_Y = 630;
 
     var mapWidth = mapElement.offsetWidth;
+    var pinWidth = pinElement.offsetWidth;
+    var pinHeight = pinElement.offsetHeight;
     var locationMinX = pinWidth / 2;
 
     pinElement.addEventListener('mousedown', function (evt) {
