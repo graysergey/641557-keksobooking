@@ -2,20 +2,15 @@
 
 (function () {
 
-  window.setDraggablePin = function (mapElement) {
+  window.setDraggablePin = function (mapElement, pinElement, pinWidth, pinHeight) {
 
     var LOCATION_MIN_Y = 130;
     var LOCATION_MAX_Y = 630;
 
     var mapWidth = mapElement.offsetWidth;
-    var mapPinMain = mapElement.querySelector('.map__pin--main');
-    var pinWidth = mapPinMain.offsetWidth;
-    var pinHeight = mapPinMain.offsetHeight;
-    var pinHalfWidth = pinWidth / 2;
-    var pinHalfHeight = pinHeight / 2;
-    var locationMinX = pinHalfWidth;
+    var locationMinX = pinWidth / 2;
 
-    mapPinMain.addEventListener('mousedown', function (evt) {
+    pinElement.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
       var startCoords = {
@@ -40,17 +35,17 @@
           y: moveEvt.clientY
         };
 
-        var newCoordsX = mapPinMain.offsetLeft - shift.x;
-        var newCoordsY = mapPinMain.offsetTop - shift.y;
+        var newCoordsX = pinElement.offsetLeft - shift.x;
+        var newCoordsY = pinElement.offsetTop - shift.y;
 
         var minCoords = {
-          x: Math.floor(locationMinX - pinHalfWidth),
+          x: Math.floor(locationMinX - pinWidth / 2),
           y: Math.floor(LOCATION_MIN_Y - pinHeight)
         };
 
         var maxCoords = {
           x: Math.floor(mapWidth - pinWidth),
-          y: Math.floor(LOCATION_MAX_Y - pinHalfHeight)
+          y: Math.floor(LOCATION_MAX_Y - pinHeight / 2)
         };
 
         if (newCoordsY < minCoords.y) {
@@ -69,8 +64,8 @@
           newCoordsX = maxCoords.x;
         }
 
-        mapPinMain.style.left = newCoordsX + 'px';
-        mapPinMain.style.top = newCoordsY + 'px';
+        pinElement.style.left = newCoordsX + 'px';
+        pinElement.style.top = newCoordsY + 'px';
       };
 
       var onMouseUp = function (upEvt) {

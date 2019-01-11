@@ -4,19 +4,17 @@
 
   var PIN_ARROW = 12;
 
-  var mapPinMain = document.querySelector('.map__pin--main');
-  var filtersContainer = document.querySelector('.map').querySelector('.map__filters-container');
   var map = document.querySelector('.map');
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var filtersContainer = map.querySelector('.map__filters-container');
   var pins = document.querySelector('.map__pins');
   var pinWidth = mapPinMain.offsetWidth;
   var pinHeight = mapPinMain.offsetHeight;
-  var pinHalfWidth = pinWidth / 2;
-  var pinHalfHeight = pinHeight / 2;
   var dataCopy = [];
 
   // Записывает в поле Адреса - координаты главной метки
   var getCurentCoordsMainPin = function () {
-    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + pinHalfWidth);
+    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + pinWidth / 2);
     var locationY = Math.round(parseInt(mapPinMain.style.top, 10));
     window.form.setAddress(locationX, Math.round((locationY + PIN_ARROW + pinHeight)));
   };
@@ -114,11 +112,11 @@
     window.form.resetToDefault();
     window.formAds.filtersDeactivate();
     window.previewPhotos.clean();
-    window.form.setAddress(Math.round(locationX + pinHalfWidth), Math.round((locationY + pinHalfHeight)));
+    window.form.setAddress(Math.round(locationX + pinWidth / 2), Math.round((locationY + pinHeight / 2)));
   };
 
-  window.form.setAddress(Math.round(locationX + pinHalfWidth), Math.round((locationY + pinHalfHeight)));
-  window.setDraggablePin(map);
+  window.form.setAddress(Math.round(locationX + pinWidth / 2), Math.round((locationY + pinHeight / 2)));
+  window.setDraggablePin(map, mapPinMain, pinWidth, pinHeight);
 
   window.map = {
     setListenerToCard: setListenerToCard,
