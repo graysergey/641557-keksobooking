@@ -5,9 +5,9 @@
   var PIN_ARROW = 12;
 
   var map = document.querySelector('.map');
-  var mapPinMain = document.querySelector('.map__pin--main');
+  var mapPinMain = map.querySelector('.map__pin--main');
   var filtersContainer = map.querySelector('.map__filters-container');
-  var pins = document.querySelector('.map__pins');
+  var pins = map.querySelector('.map__pins');
   var pinWidth = mapPinMain.offsetWidth;
   var pinHeight = mapPinMain.offsetHeight;
   var dataCopy = [];
