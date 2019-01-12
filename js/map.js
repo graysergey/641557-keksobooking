@@ -62,20 +62,23 @@
   });
 
   var closeCardPopup = function () {
-    var card = document.querySelector('.map__card');
-    return card && card.remove();
+    return opendCard && opendCard.remove();
   };
+
+  var opendCard;
 
   var renderCardPopup = function (pinId) {
     closeCardPopup();
     var newCard = window.createCard(window.filter.getFiltredData(dataCopy)[pinId]);
+    opendCard = newCard;
     map.insertBefore(newCard, filtersContainer);
   };
 
   var removeActivePin = function () {
-    var pinActive = document.querySelector('.map__pin--active');
     return pinActive && pinActive.classList.remove('map__pin--active');
   };
+
+  var pinActive;
 
   // Вешает обработчики событий на метки (для отрисовки карточки)
   var setListenerToPin = function (item) {
@@ -85,6 +88,7 @@
       var pinId = button.getAttribute('data-id');
       renderCardPopup(pinId);
       item.classList.add('map__pin--active');
+      pinActive = item;
     });
   };
 
