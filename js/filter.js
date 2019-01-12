@@ -69,8 +69,8 @@
   };
 
   window.filter = {
-    onChangeFilter: onChangeFilter,
-    getFiltredData: getFiltredData
+    onChange: onChangeFilter,
+    getData: getFiltredData
   };
 
 })();

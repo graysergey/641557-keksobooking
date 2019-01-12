@@ -2,15 +2,9 @@
 
 (function () {
 
-  var PIN_ARROW = 12;
-  var pinHeight = document.querySelector('.map__pin--main').offsetHeight;
-  var pinWidth = document.querySelector('.map__pin--main').offsetWidth;
-  var pinHalfHeight = pinHeight / 2;
-  var pinHalfWidth = pinWidth / 2;
   var selectRoomNumber = document.querySelector('#room_number');
   var capasitySelectGroop = document.querySelector('#capacity');
   var capacitySelectItem = capasitySelectGroop.querySelectorAll('option');
-  var mapPinMain = document.querySelector('.map__pins').querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
   var minPrice = {
     bungalo: 0,
@@ -94,25 +88,6 @@
     setMinPrice(minPrice[evt.target.value]);
   });
 
-  // Записывает в поле Адреса - координаты главной метки
-  var getLocationMapPinMain = function () {
-    var inputAddress = form.querySelector('#address');
-    var locationX = Math.round(parseInt(mapPinMain.style.left, 10) + pinHalfWidth);
-    var locationY = Math.round(parseInt(mapPinMain.style.top, 10) + pinHalfHeight);
-
-    inputAddress.setAttribute('value', locationX + ', ' + Math.round(((locationY - pinHalfHeight) + PIN_ARROW + pinHeight)));
-  };
-  getLocationMapPinMain();
-  // Сбрасывает координаты пина
-  var locationX = Math.round(parseInt(mapPinMain.style.left, 10));
-  var locationY = Math.round(parseInt(mapPinMain.style.top, 10));
-
-  var resetLocationMapPinMain = function () {
-    mapPinMain.style.left = locationX + 'px';
-    mapPinMain.style.top = locationY + 'px';
-    getLocationMapPinMain();
-  };
-
   // Обработчик submit
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
@@ -125,24 +100,33 @@
   });
 
   // обработчик reset
-  var resetForm = form.querySelector('.ad-form__reset');
-  resetForm.addEventListener('click', function (evt) {
+  var buttonResetForm = form.querySelector('.ad-form__reset');
+  buttonResetForm.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.map.dectivateInterface();
   });
 
-  resetForm.addEventListener('keydown', function (evt) {
+  buttonResetForm.addEventListener('keydown', function (evt) {
     evt.preventDefault();
     if (window.utils.isEnterEvent(evt)) {
       window.map.dectivateInterface();
     }
   });
 
+  var resetForm = function () {
+    form.reset();
+  };
+
+  var setAddress = function (x, y) {
+    var inputAddress = form.querySelector('#address');
+    inputAddress.setAttribute('value', x + ', ' + y);
+  };
+
   window.form = {
     removeDisabled: removeDisabled,
-    getLocationMapPinMain: getLocationMapPinMain,
     addDisabled: addDisabled,
-    resetLocationMapPinMain: resetLocationMapPinMain
+    resetToDefault: resetForm,
+    setAddress: setAddress
   };
 
 })();

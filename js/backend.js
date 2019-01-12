@@ -8,12 +8,12 @@
     NOT_FOUND: 404
   };
 
-  var URL = {
-    load: 'https://js.dump.academy/keksobooking/data',
-    upload: 'https://js.dump.academy/keksobooking'
+  var Url = {
+    LOAD: 'https://js.dump.academy/keksobooking/data',
+    UPLOAD: 'https://js.dump.academy/keksobooking'
   };
 
-  var xhrRender = function (onLoad, onError) {
+  var createRequest = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -45,14 +45,14 @@
   };
 
   var load = function (onLoad, onError) {
-    var xhr = xhrRender(onLoad, onError);
-    xhr.open('GET', URL.load);
+    var xhr = createRequest(onLoad, onError);
+    xhr.open('GET', Url.LOAD);
     xhr.send();
   };
 
   var upload = function (data, onLoad, onError) {
-    var xhr = xhrRender(onLoad, onError);
-    xhr.open('POST', URL.upload);
+    var xhr = createRequest(onLoad, onError);
+    xhr.open('POST', Url.UPLOAD);
     xhr.send(data);
   };
 

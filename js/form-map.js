@@ -14,16 +14,16 @@
   };
   filtersDeactivate();
 
-  var filtersActivate = function () {
+  var removeDisabled = function () {
     selectsFormFilters.forEach(function (item) {
       item.removeAttribute('disabled');
     });
     fieldsetFormFilter.removeAttribute('disabled');
   };
 
-  window.formAds = {
+  window.formMap = {
     filtersDeactivate: filtersDeactivate,
-    filtersActivate: filtersActivate
+    removeDisabled: removeDisabled
   };
 
 })();

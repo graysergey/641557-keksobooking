@@ -31,7 +31,7 @@
   // проверка наличия элементов карточки
   var renderTitle = function (title, card) {
     var titleElement = card.querySelector('.popup__title');
-    if (title.length !== 0) {
+    if (title.length) {
       titleElement.textContent = title;
     } else {
       titleElement.remove();
@@ -40,7 +40,7 @@
 
   var renderAddress = function (address, card) {
     var adressElement = card.querySelector('.popup__text--address');
-    if (address.length !== 0) {
+    if (address.length) {
       adressElement.textContent = address;
     } else {
       adressElement.remove();
@@ -49,7 +49,7 @@
 
   var renderPrice = function (price, card) {
     var priceElement = card.querySelector('.popup__text--price');
-    if (price.length !== 0) {
+    if (price.length) {
       priceElement.textContent = price + '\u20BD' + '/ночь';
     } else {
       priceElement.remove();
@@ -58,7 +58,7 @@
 
   var renderType = function (type, card) {
     var typeElement = card.querySelector('.popup__type');
-    if (type.length !== 0) {
+    if (type.length) {
       typeElement.textContent = type;
     } else {
       typeElement.remove();
@@ -67,7 +67,7 @@
 
   var renderCapacity = function (rooms, guests, card) {
     var capacityElement = card.querySelector('.popup__text--capacity');
-    if (rooms.length && guests.length !== 0) {
+    if (rooms.length && guests.length) {
       capacityElement.textContent = rooms + ' комнаты для ' + guests + ' гостей';
     } else {
       capacityElement.remove();
@@ -76,7 +76,7 @@
 
   var renderCheckin = function (checkin, checkout, card) {
     var timeElement = card.querySelector('.popup__text--time');
-    if (checkin.length && checkout.length !== 0) {
+    if (checkin.length && checkout.length) {
       timeElement.textContent = 'Заезд после ' + checkin + ', выезд до ' + checkout;
     } else {
       timeElement.remove();
@@ -85,7 +85,7 @@
 
   var renderDescription = function (description, card) {
     var descriptionElement = card.querySelector('.popup__description');
-    if (description.length !== 0) {
+    if (description.length) {
       descriptionElement.textContent = description;
     } else {
       descriptionElement.remove();
@@ -94,7 +94,7 @@
 
   var renderPhotos = function (photos, card) {
     var photosListElement = card.querySelector('.popup__photos');
-    if (photos.length !== 0) {
+    if (photos.length) {
       photosListElement.textContent = '';
       photosListElement.appendChild(getElementPhoto(photos));
     } else {
@@ -104,7 +104,7 @@
 
   var renderAvatar = function (avatar, card) {
     var avatarElement = card.querySelector('.popup__avatar');
-    if (avatar.length !== 0) {
+    if (avatar.length) {
       avatarElement.src = avatar;
     } else {
       avatarElement.remove();
@@ -113,7 +113,7 @@
 
   var renderFeatures = function (features, card) {
     var featuresList = card.querySelector('.popup__features');
-    if (features.length !== 0) {
+    if (features.length) {
       featuresList.textContent = ''; //  удаляет все li
       featuresList.appendChild(getFeatures(features)); // добавляет из массива li
     } else {
@@ -125,7 +125,7 @@
   var getCardElement = function (advert) {
     var card = cardTemplate.cloneNode(true);
     var closeButton = card.querySelector('.popup__close');
-    window.map.onCloseClick(closeButton);
+    window.map.setListenerToCard(closeButton);
 
     renderTitle(advert.offer.title, card);
     renderAddress(advert.offer.address, card);
@@ -141,13 +141,6 @@
     return card;
   };
 
-  // Создает DOM фрагмент (объявления на карте)
-  var getFragmentCard = function (arrIndex) {
-    var fragment = document.createDocumentFragment();
-    fragment.appendChild(getCardElement(arrIndex));
-    return fragment;
-  };
-
-  window.card = getFragmentCard;
+  window.createCard = getCardElement;
 
 })();
