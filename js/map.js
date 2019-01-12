@@ -35,7 +35,7 @@
     window.form.removeDisabled();
     window.formMap.removeDisabled();
     window.backend.load(onSuccessData, window.popup.onError);
-    window.previewPhotos.onLoadAvatar();
+    window.previewPhotos.setListenerToLoadButton();
   };
 
   var updatePins = function (data) {

@@ -72,7 +72,7 @@
   };
 
   window.previewPhotos = {
-    onLoadAvatar: function () {
+    setListenerToLoadButton: function () {
       avatarFileChooser.addEventListener('change', onInputAvatarChange);
       photoPlaceFileChooser.addEventListener('change', onInputPhotosPlaceChange);
     },
