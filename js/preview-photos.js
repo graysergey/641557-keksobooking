@@ -16,7 +16,7 @@
     var matches = FILE_TYPES.some(function (it) {
       return fileName.endsWith(it);
     });
-    avatarPreview.width = 65;
+    avatarPreview.width = 70;
     avatarPreview.height = 70;
     avatarPreview.style = 'border-radius: 5px';
     avatarContainer.style = 'padding: 0';
