@@ -21,7 +21,7 @@
     fieldsetFormFilter.removeAttribute('disabled');
   };
 
-  window.formAds = {
+  window.formMap = {
     filtersDeactivate: filtersDeactivate,
     removeDisabled: removeDisabled
   };

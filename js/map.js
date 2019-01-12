@@ -33,19 +33,19 @@
   var activateInterface = function () {
     map.classList.remove('map--faded');
     window.form.removeDisabled();
-    window.formAds.removeDisabled();
+    window.formMap.removeDisabled();
     window.backend.load(onSuccessData, window.popup.onError);
     window.previewPhotos.onLoadAvatar();
   };
 
   var updatePins = function (data) {
-    pins.appendChild(window.pin.getPointerFragment(window.filter.getFiltredData(data)));
+    pins.appendChild(window.pin.getPointerFragment(window.filter.getData(data)));
   };
 
   var onSuccessData = function (data) {
     dataCopy = data.slice();
     updatePins(dataCopy);
-    window.filter.onChangeFilter(function () {
+    window.filter.onChange(function () {
       window.debounce(function () {
         closeCardPopup();
         updatePins(dataCopy);
@@ -69,7 +69,7 @@
 
   var renderCardPopup = function (pinId) {
     closeCardPopup();
-    var newCard = window.createCard(window.filter.getFiltredData(dataCopy)[pinId]);
+    var newCard = window.createCard(window.filter.getData(dataCopy)[pinId]);
     opendCard = newCard;
     map.insertBefore(newCard, filtersContainer);
   };
@@ -114,7 +114,7 @@
     window.form.addDisabled();
     window.pin.removePins();
     window.form.resetToDefault();
-    window.formAds.filtersDeactivate();
+    window.formMap.filtersDeactivate();
     window.previewPhotos.clean();
     window.form.setAddress(Math.round(locationX + pinWidth / 2), Math.round((locationY + pinHeight / 2)));
   };
